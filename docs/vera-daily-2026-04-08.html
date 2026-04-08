@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>薇拉市場日報 — 2026-04-08</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #000;
+    color: #E3F2FD;
+    font-family: 'Inter', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* 背景光暈 */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 85% 90%, rgba(139, 92, 246, 0.08), transparent),
+      radial-gradient(ellipse 50% 40% at 10% 15%, rgba(59, 130, 246, 0.06), transparent),
+      radial-gradient(ellipse 40% 30% at 50% 50%, rgba(236, 72, 153, 0.03), transparent);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 8px;
+    animation: fadeDown 0.6s ease both;
+  }
+
+  .logo {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #8B5CF6, #3B82F6);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  }
+
+  .header-text h1 {
+    font-size: 22px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #C4B5FD, #93C5FD);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .header-text .subtitle {
+    font-size: 13px;
+    color: rgba(227, 242, 253, 0.5);
+    font-weight: 300;
+  }
+
+  .date-badge {
+    margin: 12px 0 32px;
+    animation: fadeDown 0.6s ease 0.1s both;
+  }
+
+  .date-badge span {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(227, 242, 253, 0.6);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    background: rgba(139, 92, 246, 0.08);
+  }
+
+  /* Section */
+  .section {
+    margin-bottom: 36px;
+  }
+
+  .section-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #A78BFA;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(139, 92, 246, 0.3), transparent);
+  }
+
+  /* 摘要卡 */
+  .summary-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(139, 92, 246, 0.15);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .summary-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .summary-card li {
+    padding-left: 20px;
+    position: relative;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .summary-card li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: #8B5CF6;
+    font-weight: bold;
+  }
+
+  /* Regime 儀表板 */
+  .regime-dashboard {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(139, 92, 246, 0.15);
+    border-radius: 16px;
+    padding: 24px;
+    animation: fadeUp 0.5s ease 0.1s both;
+  }
+
+  .regime-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .regime-score {
+    font-size: 48px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #FBBF24, #F59E0B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .regime-label {
+    text-align: right;
+  }
+
+  .regime-label .signal {
+    font-size: 18px;
+    font-weight: 600;
+    color: #FBBF24;
+  }
+
+  .regime-label .sub {
+    font-size: 12px;
+    color: rgba(227, 242, 253, 0.5);
+  }
+
+  .regime-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  @media (max-width: 600px) {
+    .regime-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .regime-dim {
+    background: rgba(255,255,255,0.04);
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+  }
+
+  .regime-dim .dim-name {
+    font-size: 11px;
+    color: rgba(227, 242, 253, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  .regime-dim .dim-score {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .regime-dim .dim-detail {
+    font-size: 11px;
+    color: rgba(227, 242, 253, 0.4);
+    margin-top: 2px;
+  }
+
+  .score-positive { color: #34D399; }
+  .score-negative { color: #F87171; }
+  .score-neutral { color: #FBBF24; }
+
+  /* 價格表 */
+  .price-table {
+    width: 100%;
+    border-collapse: collapse;
+    animation: fadeUp 0.5s ease 0.15s both;
+  }
+
+  .price-table th {
+    text-align: left;
+    font-size: 11px;
+    color: rgba(227, 242, 253, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 8px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .price-table td {
+    padding: 12px;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+
+  .price-table tr:hover {
+    background: rgba(139, 92, 246, 0.05);
+  }
+
+  .coin-name {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .coin-icon {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .price-up { color: #34D399; }
+  .price-down { color: #F87171; }
+
+  .vol-bar {
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(139, 92, 246, 0.15);
+    margin-top: 4px;
+  }
+
+  .vol-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #8B5CF6, #3B82F6);
+  }
+
+  /* 新聞卡 */
+  .news-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 12px;
+    transition: all 0.3s ease;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .news-card:hover {
+    border-color: rgba(139, 92, 246, 0.3);
+    background: rgba(139, 92, 246, 0.05);
+    transform: translateY(-1px);
+  }
+
+  .news-tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .tag-geo { background: rgba(239, 68, 68, 0.15); color: #FCA5A5; border: 1px solid rgba(239, 68, 68, 0.2); }
+  .tag-macro { background: rgba(251, 191, 36, 0.15); color: #FDE68A; border: 1px solid rgba(251, 191, 36, 0.2); }
+  .tag-market { background: rgba(59, 130, 246, 0.15); color: #93C5FD; border: 1px solid rgba(59, 130, 246, 0.2); }
+  .tag-onchain { background: rgba(52, 211, 153, 0.15); color: #6EE7B7; border: 1px solid rgba(52, 211, 153, 0.2); }
+  .tag-alert { background: rgba(239, 68, 68, 0.2); color: #FCA5A5; border: 1px solid rgba(239, 68, 68, 0.3); }
+  .tag-strategy { background: rgba(139, 92, 246, 0.15); color: #C4B5FD; border: 1px solid rgba(139, 92, 246, 0.2); }
+
+  .news-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #F3F4F6;
+  }
+
+  .news-body {
+    font-size: 13px;
+    color: rgba(227, 242, 253, 0.65);
+    line-height: 1.8;
+  }
+
+  /* 警報卡 */
+  .alert-card {
+    background: rgba(239, 68, 68, 0.06);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 12px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .alert-card .news-title {
+    color: #FCA5A5;
+  }
+
+  /* 持倉摘要 */
+  .position-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    animation: fadeUp 0.5s ease 0.2s both;
+  }
+
+  @media (max-width: 600px) {
+    .position-grid { grid-template-columns: 1fr; }
+  }
+
+  .position-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 16px;
+  }
+
+  .position-card .pair {
+    font-size: 14px;
+    font-weight: 600;
+    color: #F3F4F6;
+  }
+
+  .position-card .direction {
+    display: inline-block;
+    padding: 1px 8px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    background: rgba(52, 211, 153, 0.15);
+    color: #34D399;
+    margin-left: 6px;
+  }
+
+  .position-card .pnl {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 8px 0 4px;
+  }
+
+  .position-card .meta {
+    font-size: 11px;
+    color: rgba(227, 242, 253, 0.4);
+  }
+
+  /* 事件時間線 */
+  .timeline {
+    position: relative;
+    padding-left: 24px;
+    animation: fadeUp 0.5s ease 0.2s both;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, rgba(139, 92, 246, 0.4), rgba(139, 92, 246, 0.05));
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -22px;
+    top: 6px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid #8B5CF6;
+    background: #000;
+  }
+
+  .timeline-item.critical::before {
+    background: #EF4444;
+    border-color: #EF4444;
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+  }
+
+  .timeline-item.active::before {
+    background: #8B5CF6;
+    box-shadow: 0 0 8px rgba(139, 92, 246, 0.5);
+  }
+
+  .timeline-date {
+    font-size: 12px;
+    color: #A78BFA;
+    font-weight: 600;
+  }
+
+  .timeline-event {
+    font-size: 14px;
+    font-weight: 500;
+    color: #F3F4F6;
+  }
+
+  .timeline-note {
+    font-size: 12px;
+    color: rgba(227, 242, 253, 0.4);
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    text-align: center;
+    animation: fadeUp 0.5s ease 0.3s both;
+  }
+
+  .footer p {
+    font-size: 12px;
+    color: rgba(227, 242, 253, 0.3);
+  }
+
+  .footer .powered {
+    margin-top: 4px;
+    font-size: 11px;
+    color: rgba(139, 92, 246, 0.4);
+  }
+
+  /* 標籤雲 */
+  .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+    animation: fadeUp 0.5s ease 0.25s both;
+  }
+
+  .tag-cloud span {
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    background: rgba(255,255,255,0.04);
+    color: rgba(227, 242, 253, 0.5);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* 動畫 */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* 閃爍光效 */
+  .glow-line {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.5), transparent);
+    margin: 24px 0;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">V</div>
+    <div class="header-text">
+      <h1>薇拉市場日報</h1>
+      <div class="subtitle">Vera Market Intelligence Daily</div>
+    </div>
+  </div>
+
+  <div class="date-badge">
+    <span>2026 年 4 月 8 日（二）｜超級數據週 Day 1</span>
+  </div>
+
+  <!-- 摘要 -->
+  <div class="section">
+    <div class="section-title">今日摘要</div>
+    <div class="summary-card">
+      <ul>
+        <li><strong>🔥 重大突破：Trump 同意兩週停火</strong>，伊朗承諾開放荷莫茲海峽，油價暴跌 8% 至 ~$103</li>
+        <li><strong>BTC $71,687（+4.23%）</strong>從 $67,730 強勢反彈，BTC ETF 單日流入 $4.71 億（年度第 6 大）</li>
+        <li><strong>全線反攻：</strong>ETH +6.09%、SOL +6.96%、ADA +7.46%、DOT +7.17%，山寨幣領漲</li>
+        <li><strong>FOMC Minutes 今晚 02:00</strong> — 超級數據週開場，明天 CPI 才是重頭戲</li>
+        <li><strong>Strategy Q1 虧 $145 億仍加碼 $3.3 億 BTC</strong>，MSTR 反漲 6%，機構逢低布局</li>
+        <li><strong>⚠️ Regime +8.7 中性 + Event Blackout</strong> — 停火利好短線有效，但不追漲，等 CPI</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="glow-line"></div>
+
+  <!-- Regime 儀表板 -->
+  <div class="section">
+    <div class="section-title">Regime Signal 儀表板</div>
+    <div class="regime-dashboard">
+      <div class="regime-header">
+        <div class="regime-score">+8.7</div>
+        <div class="regime-label">
+          <div class="signal">NEUTRAL</div>
+          <div class="sub">保持觀望，不加不減</div>
+          <div class="sub" style="color: #F87171; margin-top: 4px;">🚫 不允許新開倉</div>
+        </div>
+      </div>
+      <div class="regime-grid">
+        <div class="regime-dim">
+          <div class="dim-name">總經</div>
+          <div class="dim-score score-negative">-6.2</div>
+          <div class="dim-detail">Slowdown</div>
+        </div>
+        <div class="regime-dim">
+          <div class="dim-name">鏈上</div>
+          <div class="dim-score score-positive">+29.5</div>
+          <div class="dim-detail">FNG=11 極恐</div>
+        </div>
+        <div class="regime-dim">
+          <div class="dim-name">VIX</div>
+          <div class="dim-score score-positive">+11.1</div>
+          <div class="dim-detail">VIX=24 中性</div>
+        </div>
+        <div class="regime-dim">
+          <div class="dim-name">ML</div>
+          <div class="dim-score score-negative">-10.0</div>
+          <div class="dim-detail">HMM熊83% ⚔️</div>
+        </div>
+        <div class="regime-dim">
+          <div class="dim-name">Deribit</div>
+          <div class="dim-score score-negative">-6.4</div>
+          <div class="dim-detail">Skew偏高</div>
+        </div>
+        <div class="regime-dim">
+          <div class="dim-name">Funding</div>
+          <div class="dim-score score-positive">+10.0</div>
+          <div class="dim-detail">低費率健康</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="glow-line"></div>
+
+  <!-- 價格總覽 -->
+  <div class="section">
+    <div class="section-title">加密市場即時行情</div>
+    <table class="price-table">
+      <thead>
+        <tr>
+          <th>幣種</th>
+          <th>價格</th>
+          <th>24h</th>
+          <th>24h 範圍</th>
+          <th>成交量</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="coin-name"><span class="coin-icon" style="background:#F7931A;">₿</span> BTC</span></td>
+          <td><strong>$71,687</strong></td>
+          <td class="price-up"><strong>+4.23%</strong></td>
+          <td style="font-size:12px;color:rgba(227,242,253,0.5);">$67,730 — $71,687</td>
+          <td>$528M<div class="vol-bar"><div class="vol-bar-fill" style="width:100%"></div></div></td>
+        </tr>
+        <tr>
+          <td><span class="coin-name"><span class="coin-icon" style="background:#627EEA;">Ξ</span> ETH</span></td>
+          <td><strong>$2,229</strong></td>
+          <td class="price-up"><strong>+6.09%</strong></td>
+          <td style="font-size:12px;color:rgba(227,242,253,0.5);">$2,060 — $2,230</td>
+          <td>$335M<div class="vol-bar"><div class="vol-bar-fill" style="width:62%"></div></div></td>
+        </tr>
+        <tr>
+          <td><span class="coin-name"><span class="coin-icon" style="background:#9945FF;">S</span> SOL</span></td>
+          <td><strong>$85.61</strong></td>
+          <td class="price-up"><strong>+6.96%</strong></td>
+          <td style="font-size:12px;color:rgba(227,242,253,0.5);">$78.38 — $85.62</td>
+          <td>$108M<div class="vol-bar"><div class="vol-bar-fill" style="width:20%"></div></div></td>
+        </tr>
+        <tr>
+          <td><span class="coin-name"><span class="coin-icon" style="background:#F3BA2F;">B</span> BNB</span></td>
+          <td><strong>$620.0</strong></td>
+          <td class="price-up"><strong>+3.49%</strong></td>
+          <td style="font-size:12px;color:rgba(227,242,253,0.5);">$591.9 — $620.0</td>
+          <td>$6.8M<div class="vol-bar"><div class="vol-bar-fill" style="width:1%"></div></div></td>
+        </tr>
+        <tr>
+          <td><span class="coin-name"><span class="coin-icon" style="background:#23292F;">X</span> XRP</span></td>
+          <td><strong>$1.376</strong></td>
+          <td class="price-up"><strong>+4.53%</strong></td>
+          <td style="font-size:12px;color:rgba(227,242,253,0.5);">$1.294 — $1.376</td>
+          <td>$32M<div class="vol-bar"><div class="vol-bar-fill" style="width:6%"></div></div></td>
+        </tr>
+        <tr>
+          <td><span class="coin-name"><span class="coin-icon" style="background:#C3A634;">D</span> DOGE</span></td>
+          <td><strong>$0.0954</strong></td>
+          <td class="price-up"><strong>+5.68%</strong></td>
+          <td style="font-size:12px;color:rgba(227,242,253,0.5);">$0.0899 — $0.0954</td>
+          <td>$53M<div class="vol-bar"><div class="vol-bar-fill" style="width:10%"></div></div></td>
+        </tr>
+        <tr>
+          <td><span class="coin-name"><span class="coin-icon" style="background:#0033AD;">A</span> ADA</span></td>
+          <td><strong>$0.265</strong></td>
+          <td class="price-up"><strong>+7.46%</strong></td>
+          <td style="font-size:12px;color:rgba(227,242,253,0.5);">$0.239 — $0.265</td>
+          <td>$11M<div class="vol-bar"><div class="vol-bar-fill" style="width:2%"></div></div></td>
+        </tr>
+        <tr>
+          <td><span class="coin-name"><span class="coin-icon" style="background:#E84142;">A</span> AVAX</span></td>
+          <td><strong>$9.414</strong></td>
+          <td class="price-up"><strong>+3.77%</strong></td>
+          <td style="font-size:12px;color:rgba(227,242,253,0.5);">$8.466 — $9.414</td>
+          <td>$13.0M<div class="vol-bar"><div class="vol-bar-fill" style="width:2%"></div></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="glow-line"></div>
+
+  <!-- 關鍵新聞 -->
+  <div class="section">
+    <div class="section-title">關鍵市場情報</div>
+
+    <div class="alert-card" style="animation-delay: 0.1s;">
+      <span class="news-tag tag-geo">地緣政治 — 重大突破</span>
+      <div class="news-title">Trump 同意兩週停火！伊朗承諾開放荷莫茲海峽，油價暴跌 8%</div>
+      <div class="news-body">
+        Trump 宣布暫停轟炸伊朗兩週，條件是伊朗「完全、立即、安全地開放荷莫茲海峽」。伊朗外長阿拉格奇回應：允許兩週內安全通行，需與伊朗軍方協調。<br><br>
+        <strong>市場即時反應：</strong>WTI 從 $117 暴跌至 ~$103（-8%）、標普 500 期貨 +1.6%、納指期貨 +1.8%。這解釋了今晚加密市場全線反彈的動能。<br><br>
+        <strong>⚠️ 但別太樂觀：</strong>IEA 警告這是「比 1973+1979+2002 合計更嚴重」的能源危機。波灣煉油設施修復需數月，航運恢復至少兩個月。停火 ≠ 和平，隨時可能破裂。
+      </div>
+    </div>
+
+    <div class="news-card" style="animation-delay: 0.13s;">
+      <span class="news-tag tag-market">市場動態</span>
+      <div class="news-title">BTC 收復 $71,687（+4.23%）— 停火消息 + ETF 資金雙重驅動</div>
+      <div class="news-body">
+        BTC 從 $67,730 低點強勢反彈，突破 $71K。<strong>BTC 現貨 ETF 昨日流入 $4.71 億</strong>（2026 年第 6 大單日流入），機構抄底訊號明確。ETH +6.09%、SOL +6.96%、ADA +7.46% 山寨幣全面領漲。<br><br>
+        BTC 週漲 +3.2%、ETH 週漲 +4.1%。但距離歷史高點（BTC $126K、ETH $4,953）仍有巨大差距，YoY BTC 仍 -12%。
+      </div>
+    </div>
+
+    <div class="news-card" style="animation-delay: 0.16s;">
+      <span class="news-tag tag-macro">總經數據</span>
+      <div class="news-title">FOMC Minutes 今晚 02:00 — 超級數據週第一槍</div>
+      <div class="news-body">
+        1 月會議維持利率 3.5-3.75% 不變，但委員分歧加大：Miran 和 Waller 投反對票主張降息。公布後 10Y 殖利率上升 3bp。<br><br>
+        關注點：(1) 關稅對通膨的評估 (2) 是否暗示下半年降息 (3) 伊朗戰爭對能源的討論。明天 CPI（est 2.6% vs prev 2.8%）才是真正重頭戲。
+      </div>
+    </div>
+
+    <div class="news-card" style="animation-delay: 0.19s;">
+      <span class="news-tag tag-market">機構動態</span>
+      <div class="news-title">Strategy（MSTR）Q1 虧損 $145 億，仍加碼買入 $3.3 億 BTC</div>
+      <div class="news-body">
+        Michael Saylor 的 Strategy 公司報告 Q1 未實現虧損 $145 億（BTC 下跌 >20%），但隨即再買入 4,871 顆 BTC（$3.3 億）。目前持有 766,970 BTC（~$530 億）。MSTR 股價反漲 +6.24%，市場解讀為「逢低加碼」信號。<br><br>
+        另外，<strong>XRP ETF 累計流入 $12 億</strong>後突然停滯，3 月流入暴跌 99%，AUM 從 $16.5 億降至 ~$10 億。機構對 altcoin ETF 的熱情是否見頂值得關注。
+      </div>
+    </div>
+
+    <div class="news-card" style="animation-delay: 0.22s;">
+      <span class="news-tag tag-onchain">鏈上 & 生態</span>
+      <div class="news-title">FNG = 11 極度恐慌 ｜ ETH 新地址日增 83.7 萬（+80% YoY）</div>
+      <div class="news-body">
+        恐懼貪婪指數 11（歷史上 FNG &lt;15 後 30 天平均 +18%），MVRV 1.228 進入低估區。穩定幣供給 $317B 充足，但 NVT 323.6 偏高。<br><br>
+        ETH 生態面：每日新增 837,200 個地址（YoY +80%），大型金融機構正將 $12.5 兆美元回購市場遷移至 Ethereum。下一次硬分叉（2026 年中）將實作平行交易執行和 ePBS。
+      </div>
+    </div>
+
+    <div class="news-card" style="animation-delay: 0.25s;">
+      <span class="news-tag tag-strategy">策略信號</span>
+      <div class="news-title">Regime = 中性 +8.7 ｜ Event Blackout CAUTION ｜ 停火利好需驗證</div>
+      <div class="news-body">
+        六維度 Regime Signal +8.7 仍在中性區，CPI 前處於 Event Blackout（倉位 ×0.5）。波動率「盤整低波動」模式（ATR 7.7%、ADX 15.2），Keltner 均值回歸策略活躍。<br><br>
+        <strong>薇拉觀點：</strong>停火消息是短線利好，但兩週停火 ≠ 和平解決。CPI（明天 20:30）才是決定中期方向的關鍵。建議維持觀望，不追漲。
+      </div>
+    </div>
+  </div>
+
+  <div class="glow-line"></div>
+
+  <!-- Freqtrade 模擬盤 -->
+  <div class="section">
+    <div class="section-title">Freqtrade 模擬盤持倉</div>
+    <div class="position-grid">
+      <div class="position-card">
+        <div><span class="pair">ETH/USDT</span><span class="direction">LONG</span></div>
+        <div class="pnl price-up">+7.74%</div>
+        <div class="meta">入場 $2,069.66（3/26）→ 現 $2,229 ｜ 持倉 13 天</div>
+      </div>
+      <div class="position-card">
+        <div><span class="pair">SOL/USDT</span><span class="direction">LONG</span></div>
+        <div class="pnl price-down">-2.16%</div>
+        <div class="meta">入場 $87.50（3/26）→ 現 $85.61 ｜ 持倉 13 天</div>
+      </div>
+    </div>
+    <div style="margin-top:12px; font-size:12px; color:rgba(227,242,253,0.4); animation: fadeUp 0.5s ease 0.25s both;">
+      Phase 2：10/20 筆完成 ｜ 勝率 20% ｜ 累計 -$17.83 ｜ API auth 待修復
+    </div>
+  </div>
+
+  <div class="glow-line"></div>
+
+  <!-- 超級數據週時間線 -->
+  <div class="section">
+    <div class="section-title">超級數據週行事曆</div>
+    <div class="timeline">
+      <div class="timeline-item active">
+        <div class="timeline-date">4/8（二）02:00</div>
+        <div class="timeline-event">FOMC Minutes 公布</div>
+        <div class="timeline-note">關注鷹派措辭、縮表討論、關稅評估</div>
+      </div>
+      <div class="timeline-item critical">
+        <div class="timeline-date">4/9（三）20:30</div>
+        <div class="timeline-event">CPI YoY（est 2.6%）+ Core CPI（est 3.0%）</div>
+        <div class="timeline-note">本週最關鍵數據 — 決定降息預期走向</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">4/10（四）20:30</div>
+        <div class="timeline-event">PPI + Initial Jobless Claims</div>
+        <div class="timeline-note">生產端通膨 + 就業市場健康度</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">4/11（五）22:00</div>
+        <div class="timeline-event">UMich Consumer Sentiment（初值）</div>
+        <div class="timeline-note">消費者信心 — 影響較小</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Funding Rate -->
+  <div class="section">
+    <div class="section-title">永續合約 Funding Rate</div>
+    <div class="regime-dashboard" style="padding: 20px;">
+      <div class="regime-grid" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="regime-dim">
+          <div class="dim-name">BTC</div>
+          <div class="dim-score score-positive" style="font-size:16px;">+0.0061%</div>
+          <div class="dim-detail">年化 6.67%</div>
+        </div>
+        <div class="regime-dim">
+          <div class="dim-name">ETH</div>
+          <div class="dim-score score-positive" style="font-size:16px;">+0.0042%</div>
+          <div class="dim-detail">年化 4.61%</div>
+        </div>
+        <div class="regime-dim">
+          <div class="dim-name">SOL</div>
+          <div class="dim-score score-negative" style="font-size:16px;">-0.0021%</div>
+          <div class="dim-detail">年化 -2.35%</div>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top:12px; font-size:12px; color:rgba(227,242,253,0.4);">
+        綜合費率 0.0039%/8h（年化 4.25%）— 低費率健康中性
+      </div>
+    </div>
+  </div>
+
+  <!-- 標籤 -->
+  <div class="tag-cloud">
+    <span>兩週停火</span>
+    <span>油價暴跌 8%</span>
+    <span>BTC ETF $4.7億流入</span>
+    <span>FOMC Minutes</span>
+    <span>CPI Week</span>
+    <span>MSTR 加碼 $3.3億</span>
+    <span>Regime Neutral</span>
+    <span>FNG=11 極恐</span>
+    <span>ETH 地址激增</span>
+    <span>XRP ETF 停滯</span>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>本報告由薇拉（Vera）自動生成 ｜ 更新時間：2026-04-08 08:05 (UTC+8)</p>
+    <p style="font-size:11px; color:rgba(227,242,253,0.25); margin-top:2px;">數據來源：OKX API、Regime Signal v4、Deribit、Alternative.me</p>
+    <p class="powered">Powered by Vera Market Intelligence — Claude Opus 4.6</p>
+  </div>
+
+</div>
+
+</body>
+</html>

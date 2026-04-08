@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>薇拉早報 — 2026-04-08</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #000; color: #E3F2FD;
+    font-family: 'Inter', 'Noto Sans TC', -apple-system, sans-serif;
+    line-height: 1.7; overflow-x: hidden;
+  }
+  body::before {
+    content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 85% 90%, rgba(139,92,246,0.08), transparent),
+      radial-gradient(ellipse 50% 40% at 10% 15%, rgba(59,130,246,0.06), transparent);
+    pointer-events: none; z-index: 0;
+  }
+  .container { max-width: 880px; margin: 0 auto; padding: 40px 24px 60px; position: relative; z-index: 1; }
+  .header { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; animation: fadeDown 0.6s ease both; }
+  .logo { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, #8B5CF6, #3B82F6); display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; box-shadow: 0 0 20px rgba(139,92,246,0.3); }
+  .header-text h1 { font-size: 22px; font-weight: 700; background: linear-gradient(135deg, #C4B5FD, #93C5FD); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .header-text .subtitle { font-size: 13px; color: rgba(227,242,253,0.5); font-weight: 300; }
+  .date-badge { margin: 12px 0 32px; animation: fadeDown 0.6s ease 0.1s both; }
+  .date-badge span { display: inline-block; padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; color: rgba(227,242,253,0.6); border: 1px solid rgba(139,92,246,0.3); background: rgba(139,92,246,0.08); }
+  .section { margin-bottom: 36px; }
+  .section-title { font-size: 15px; font-weight: 600; color: #A78BFA; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(139,92,246,0.3), transparent); }
+  .summary-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(139,92,246,0.15); border-radius: 16px; padding: 24px; margin-bottom: 20px; animation: fadeUp 0.5s ease both; }
+  .summary-card ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .summary-card li { padding-left: 20px; position: relative; font-size: 14px; line-height: 1.8; }
+  .summary-card li::before { content: '▸'; position: absolute; left: 0; color: #8B5CF6; font-weight: bold; }
+  .regime-dashboard { background: rgba(255,255,255,0.03); border: 1px solid rgba(139,92,246,0.15); border-radius: 16px; padding: 24px; animation: fadeUp 0.5s ease 0.1s both; }
+  .regime-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .regime-score { font-size: 48px; font-weight: 700; background: linear-gradient(135deg, #FBBF24, #F59E0B); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .regime-label { text-align: right; }
+  .regime-label .signal { font-size: 18px; font-weight: 600; color: #FBBF24; }
+  .regime-label .sub { font-size: 12px; color: rgba(227,242,253,0.5); }
+  .regime-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  @media (max-width: 600px) { .regime-grid { grid-template-columns: repeat(2, 1fr); } }
+  .regime-dim { background: rgba(255,255,255,0.04); border-radius: 10px; padding: 14px; text-align: center; }
+  .regime-dim .dim-name { font-size: 11px; color: rgba(227,242,253,0.5); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .regime-dim .dim-score { font-size: 20px; font-weight: 600; }
+  .regime-dim .dim-detail { font-size: 11px; color: rgba(227,242,253,0.4); margin-top: 2px; }
+  .score-positive { color: #34D399; }
+  .score-negative { color: #F87171; }
+  .score-neutral { color: #FBBF24; }
+  table { width: 100%; border-collapse: collapse; animation: fadeUp 0.5s ease both; }
+  th { text-align: left; font-size: 11px; color: rgba(227,242,253,0.4); text-transform: uppercase; letter-spacing: 0.5px; padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  td { padding: 12px; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.03); }
+  tr:hover { background: rgba(139,92,246,0.05); }
+  .coin-name { font-weight: 600; display: flex; align-items: center; gap: 8px; }
+  .coin-icon { width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+  .price-up { color: #34D399; }
+  .price-down { color: #F87171; }
+  .vol-bar { height: 4px; border-radius: 2px; background: rgba(139,92,246,0.15); margin-top: 4px; }
+  .vol-bar-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, #8B5CF6, #3B82F6); }
+  .news-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 20px; margin-bottom: 12px; transition: all 0.3s ease; animation: fadeUp 0.5s ease both; }
+  .news-card:hover { border-color: rgba(139,92,246,0.3); background: rgba(139,92,246,0.05); transform: translateY(-1px); }
+  .alert-card { background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.2); border-radius: 14px; padding: 20px; margin-bottom: 12px; animation: fadeUp 0.5s ease both; }
+  .alert-card .news-title { color: #FCA5A5; }
+  .news-tag { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 500; margin-bottom: 8px; }
+  .tag-geo { background: rgba(239,68,68,0.15); color: #FCA5A5; border: 1px solid rgba(239,68,68,0.2); }
+  .tag-macro { background: rgba(251,191,36,0.15); color: #FDE68A; border: 1px solid rgba(251,191,36,0.2); }
+  .tag-market { background: rgba(59,130,246,0.15); color: #93C5FD; border: 1px solid rgba(59,130,246,0.2); }
+  .tag-onchain { background: rgba(52,211,153,0.15); color: #6EE7B7; border: 1px solid rgba(52,211,153,0.2); }
+  .tag-strategy { background: rgba(139,92,246,0.15); color: #C4B5FD; border: 1px solid rgba(139,92,246,0.2); }
+  .news-title { font-size: 16px; font-weight: 600; margin-bottom: 6px; color: #F3F4F6; }
+  .news-body { font-size: 13px; color: rgba(227,242,253,0.65); line-height: 1.8; }
+  .glow-line { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(139,92,246,0.5), transparent); margin: 24px 0; animation: shimmer 3s ease-in-out infinite; }
+  .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; animation: fadeUp 0.5s ease 0.25s both; }
+  .tag-cloud span { padding: 4px 12px; border-radius: 16px; font-size: 12px; background: rgba(255,255,255,0.04); color: rgba(227,242,253,0.5); border: 1px solid rgba(255,255,255,0.06); }
+  .footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; animation: fadeUp 0.5s ease 0.3s both; }
+  .footer p { font-size: 12px; color: rgba(227,242,253,0.3); }
+  .footer .powered { margin-top: 4px; font-size: 11px; color: rgba(139,92,246,0.4); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes shimmer { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="logo">V</div>
+    <div class="header-text">
+      <h1>薇拉早報</h1>
+      <div class="subtitle">Vera Morning Brief</div>
+    </div>
+  </div>
+
+  <div class="date-badge">
+    <span>2026-04-08（三）</span>
+  </div>
+
+  <!-- 美股收盤 -->
+  <div class="section">
+    <div class="section-title">美股收盤</div>
+    <table>
+      <thead><tr><th>指數</th><th>收盤價</th><th>漲跌</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>S&P 500</strong></td>
+          <td><strong>6,616.85</strong></td>
+          <td class="price-up"><strong>+0.08%</strong></td>
+        </tr>
+        <tr>
+          <td><strong>NASDAQ</strong></td>
+          <td><strong>22,017.85</strong></td>
+          <td class="price-up"><strong>+0.10%</strong></td>
+        </tr>
+        <tr>
+          <td><strong>道瓊</strong></td>
+          <td><strong>46,584.46</strong></td>
+          <td class="price-down"><strong>-0.18%</strong></td>
+        </tr></tbody>
+    </table>
+  </div>
+
+  <div class="glow-line"></div>
+
+  <!-- 類股板塊 -->
+  <div class="section">
+    <div class="section-title">類股板塊動態</div>
+    <table>
+      <thead><tr><th>類股</th><th>價格</th><th>漲跌</th><th>幅度</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span style="font-weight:500;">半導體</span> <span style="font-size:11px;color:rgba(227,242,253,0.4);">SMH</span></td>
+          <td>$399.90</td>
+          <td class="price-up">+0.99%</td>
+          <td><div class="vol-bar"><div class="vol-bar-fill" style="width:9.9%;background:#34D399;"></div></div></td>
+        </tr>
+        <tr>
+          <td><span style="font-weight:500;">能源</span> <span style="font-size:11px;color:rgba(227,242,253,0.4);">XLE</span></td>
+          <td>$60.16</td>
+          <td class="price-up">+0.80%</td>
+          <td><div class="vol-bar"><div class="vol-bar-fill" style="width:8.0%;background:#34D399;"></div></div></td>
+        </tr>
+        <tr>
+          <td><span style="font-weight:500;">科技</span> <span style="font-size:11px;color:rgba(227,242,253,0.4);">XLK</span></td>
+          <td>$137.43</td>
+          <td class="price-up">+0.48%</td>
+          <td><div class="vol-bar"><div class="vol-bar-fill" style="width:4.8%;background:#34D399;"></div></div></td>
+        </tr>
+        <tr>
+          <td><span style="font-weight:500;">公用事業</span> <span style="font-size:11px;color:rgba(227,242,253,0.4);">XLU</span></td>
+          <td>$46.27</td>
+          <td class="price-up">+0.22%</td>
+          <td><div class="vol-bar"><div class="vol-bar-fill" style="width:2.2%;background:#34D399;"></div></div></td>
+        </tr>
+        <tr>
+          <td><span style="font-weight:500;">醫療</span> <span style="font-size:11px;color:rgba(227,242,253,0.4);">XLV</span></td>
+          <td>$146.57</td>
+          <td class="price-up">+0.20%</td>
+          <td><div class="vol-bar"><div class="vol-bar-fill" style="width:2.0%;background:#34D399;"></div></div></td>
+        </tr>
+        <tr>
+          <td><span style="font-weight:500;">通訊</span> <span style="font-size:11px;color:rgba(227,242,253,0.4);">XLC</span></td>
+          <td>$111.82</td>
+          <td class="price-up">+0.05%</td>
+          <td><div class="vol-bar"><div class="vol-bar-fill" style="width:0.5%;background:#34D399;"></div></div></td>
+        </tr>
+        <tr>
+          <td><span style="font-weight:500;">房地產</span> <span style="font-size:11px;color:rgba(227,242,253,0.4);">XLRE</span></td>
+          <td>$41.72</td>
+          <td class="price-down">-0.10%</td>
+          <td><div class="vol-bar"><div class="vol-bar-fill" style="width:1.0%;background:#F87171;"></div></div></td>
+        </tr>
+        <tr>
+          <td><span style="font-weight:500;">工業</span> <span style="font-size:11px;color:rgba(227,242,253,0.4);">XLI</span></td>
+          <td>$164.28</td>
+          <td class="price-down">-0.20%</td>
+          <td><div class="vol-bar"><div class="vol-bar-fill" style="width:2.0%;background:#F87171;"></div></div></td>
+        </tr>
+        <tr>
+          <td><span style="font-weight:500;">原物料</span> <span style="font-size:11px;color:rgba(227,242,253,0.4);">XLB</span></td>
+          <td>$50.08</td>
+          <td class="price-down">-0.28%</td>
+          <td><div class="vol-bar"><div class="vol-bar-fill" style="width:2.8000000000000003%;background:#F87171;"></div></div></td>
+        </tr>
+        <tr>
+          <td><span style="font-weight:500;">非必需消費</span> <span style="font-size:11px;color:rgba(227,242,253,0.4);">XLY</span></td>
+          <td>$107.77</td>
+          <td class="price-down">-1.16%</td>
+          <td><div class="vol-bar"><div class="vol-bar-fill" style="width:11.6%;background:#F87171;"></div></div></td>
+        </tr>
+        <tr>
+          <td><span style="font-weight:500;">必需消費</span> <span style="font-size:11px;color:rgba(227,242,253,0.4);">XLP</span></td>
+          <td>$81.26</td>
+          <td class="price-down">-1.69%</td>
+          <td><div class="vol-bar"><div class="vol-bar-fill" style="width:16.9%;background:#F87171;"></div></div></td>
+        </tr>
+        <tr>
+          <td><span style="font-weight:500;">金融</span> <span style="font-size:11px;color:rgba(227,242,253,0.4);">XLF</span></td>
+          <td>$49.88</td>
+          <td class="price-up">+0.00%</td>
+          <td><div class="vol-bar"><div class="vol-bar-fill" style="width:0%;background:#34D399;"></div></div></td>
+        </tr></tbody>
+    </table>
+  </div>
+
+  <div class="glow-line"></div>
+
+  <!-- 大宗商品 -->
+  <div class="section">
+    <div class="section-title">大宗商品 & 匯率</div>
+    <table>
+      <thead><tr><th>品項</th><th>價格</th><th>漲跌</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>WTI 原油</strong></td>
+          <td>96.25</td>
+          <td class="price-down">-14.38%</td>
+        </tr>
+        <tr>
+          <td><strong>布蘭特原油</strong></td>
+          <td>94.50</td>
+          <td class="price-down">-13.91%</td>
+        </tr>
+        <tr>
+          <td><strong>黃金</strong></td>
+          <td>4,844.80</td>
+          <td class="price-up">+4.04%</td>
+        </tr>
+        <tr>
+          <td><strong>白銀</strong></td>
+          <td>76.56</td>
+          <td class="price-up">+5.37%</td>
+        </tr>
+        <tr>
+          <td><strong>美元指數</strong></td>
+          <td>98.95</td>
+          <td class="price-down">-1.03%</td>
+        </tr></tbody>
+    </table>
+  </div>
+
+  <div class="glow-line"></div>
+
+  <!-- 加密市場 -->
+  <div class="section">
+    <div class="section-title">加密市場</div>
+    <table>
+      <thead><tr><th>幣種</th><th>價格</th><th>24h</th><th>24h 範圍</th><th>成交量</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="coin-name"><span class="coin-icon" style="background:#F7931A;">₿</span> BTC</span></td>
+          <td><strong>$71,515.50</strong></td>
+          <td class="price-up"><strong>+3.91%</strong></td>
+          <td style="font-size:12px;color:rgba(227,242,253,0.5);">$67,730.10 — $72,760.00</td>
+          <td>$665.8M</td>
+        </tr>
+        <tr>
+          <td><span class="coin-name"><span class="coin-icon" style="background:#627EEA;">Ξ</span> ETH</span></td>
+          <td><strong>$2,231.49</strong></td>
+          <td class="price-up"><strong>+5.40%</strong></td>
+          <td style="font-size:12px;color:rgba(227,242,253,0.5);">$2,060.11 — $2,273.44</td>
+          <td>$431.7M</td>
+        </tr>
+        <tr>
+          <td><span class="coin-name"><span class="coin-icon" style="background:#9945FF;">S</span> SOL</span></td>
+          <td><strong>$84.54</strong></td>
+          <td class="price-up"><strong>+5.64%</strong></td>
+          <td style="font-size:12px;color:rgba(227,242,253,0.5);">$78.38 — $87.03</td>
+          <td>$126.1M</td>
+        </tr></tbody>
+    </table>
+    <div style="margin-top:8px; font-size:13px; color:rgba(227,242,253,0.5);">
+      Fear & Greed Index: <strong>17</strong> (Extreme Fear)
+    </div>
+  </div>
+
+  <div class="glow-line"></div>
+
+  
+  <div class="section">
+    <div class="section-title">Regime Signal</div>
+    <div class="regime-dashboard">
+      <div class="regime-header">
+        <div class="regime-score">+8.7</div>
+        <div class="regime-label">
+          <div class="signal">NEUTRAL</div>
+          <div class="sub">中性 — 保持觀望，不加不減</div>
+          <div class="sub" style="color:#F87171; margin-top:4px;">🚫 不允許新開倉</div>
+        </div>
+      </div>
+      <div class="regime-grid">
+        <div class="regime-dim">
+          <div class="dim-name">總經</div>
+          <div class="dim-score score-negative">-6.2</div>
+          <div class="dim-detail">slowdown</div>
+        </div>
+        <div class="regime-dim">
+          <div class="dim-name">鏈上</div>
+          <div class="dim-score score-positive">+29.5</div>
+          <div class="dim-detail">FNG=17</div>
+        </div>
+        <div class="regime-dim">
+          <div class="dim-name">VIX</div>
+          <div class="dim-score score-positive">+11.1</div>
+          <div class="dim-detail">VIX=25.78</div>
+        </div>
+        <div class="regime-dim">
+          <div class="dim-name">ML</div>
+          <div class="dim-score score-negative">-10.0</div>
+          <div class="dim-detail">bear</div>
+        </div>
+        <div class="regime-dim">
+          <div class="dim-name">Deribit</div>
+          <div class="dim-score score-negative">-6.4</div>
+          <div class="dim-detail"></div>
+        </div>
+        <div class="regime-dim">
+          <div class="dim-name">Funding</div>
+          <div class="dim-score score-positive">+10.0</div>
+          <div class="dim-detail"></div>
+        </div>
+      </div>
+      <div style="margin-top:8px;font-size:13px;color:#FBBF24;">⚠️ Event Blackout: CPI (Mar YoY/MoM) in 13.7h | 倉位 ×0.5</div>
+    </div>
+  </div>
+  <div class="glow-line"></div>
+
+  
+
+  
+  <div class="section">
+    <div class="section-title">台股</div>
+    <div class="summary-card">
+      <ul>
+        <li>加權指數（前日收盤）：<strong>34,430.80</strong>（+5.71%）</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>薇拉早報 ｜ 更新時間：2026-04-08 09:21 (UTC+8)</p>
+    <p class="powered">Powered by Vera Market Intelligence</p>
+  </div>
+
+</div>
+</body>
+</html>
