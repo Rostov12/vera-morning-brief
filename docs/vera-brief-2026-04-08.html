@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>薇拉早報 — 2026-04-08</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #000; color: #E3F2FD;
+    font-family: 'Inter', 'Noto Sans TC', -apple-system, sans-serif;
+    line-height: 1.85; overflow-x: hidden;
+  }
+  body::before {
+    content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 85% 90%, rgba(139,92,246,0.08), transparent),
+      radial-gradient(ellipse 50% 40% at 10% 15%, rgba(59,130,246,0.06), transparent);
+    pointer-events: none; z-index: 0;
+  }
+  .container { max-width: 780px; margin: 0 auto; padding: 40px 24px 60px; position: relative; z-index: 1; }
+
+  /* Header */
+  .header { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; animation: fadeDown 0.6s ease both; }
+  .logo { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, #8B5CF6, #3B82F6); display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; box-shadow: 0 0 20px rgba(139,92,246,0.3); }
+  .header-text h1 { font-size: 22px; font-weight: 700; background: linear-gradient(135deg, #C4B5FD, #93C5FD); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .header-text .subtitle { font-size: 13px; color: rgba(227,242,253,0.5); font-weight: 300; }
+  .date-badge { margin: 12px 0 32px; animation: fadeDown 0.6s ease 0.1s both; }
+  .date-badge span { display: inline-block; padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; color: rgba(227,242,253,0.6); border: 1px solid rgba(139,92,246,0.3); background: rgba(139,92,246,0.08); }
+
+  /* Section */
+  .section { margin-bottom: 40px; }
+  .section-title { font-size: 15px; font-weight: 600; color: #A78BFA; letter-spacing: 1px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(139,92,246,0.3), transparent); }
+
+  /* 分析卡（主角） */
+  .analysis-card {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(139,92,246,0.15);
+    border-radius: 16px; padding: 28px; margin-bottom: 16px;
+    animation: fadeUp 0.5s ease both;
+  }
+  .analysis-card h3 {
+    font-size: 17px; font-weight: 600; color: #F3F4F6; margin-bottom: 12px;
+  }
+  .analysis-card p {
+    font-size: 14px; color: rgba(227,242,253,0.72); margin-bottom: 12px;
+  }
+  .analysis-card p:last-child { margin-bottom: 0; }
+
+  /* 數據佐證（配角） */
+  .data-support {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    margin-top: 14px; padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .data-chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 12px; border-radius: 20px; font-size: 12px;
+    background: rgba(255,255,255,0.04); color: rgba(227,242,253,0.55);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .data-chip .val { font-weight: 600; }
+  .chip-up .val { color: #34D399; }
+  .chip-down .val { color: #F87171; }
+
+  /* 警報卡 */
+  .alert-card {
+    background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.2);
+    border-radius: 16px; padding: 28px; margin-bottom: 16px;
+    animation: fadeUp 0.5s ease both;
+  }
+  .alert-card h3 { color: #FCA5A5; font-size: 17px; font-weight: 600; margin-bottom: 12px; }
+  .alert-card p { font-size: 14px; color: rgba(227,242,253,0.72); margin-bottom: 12px; }
+
+  /* 預測卡 */
+  .forecast-card {
+    background: rgba(59,130,246,0.06); border: 1px solid rgba(59,130,246,0.2);
+    border-radius: 16px; padding: 28px; margin-bottom: 16px;
+    animation: fadeUp 0.5s ease both;
+  }
+  .forecast-card h3 { color: #93C5FD; font-size: 17px; font-weight: 600; margin-bottom: 12px; }
+  .forecast-card p { font-size: 14px; color: rgba(227,242,253,0.72); margin-bottom: 12px; }
+
+  .forecast-range {
+    display: flex; align-items: center; gap: 12px;
+    margin: 16px 0; padding: 16px 20px;
+    background: rgba(255,255,255,0.04); border-radius: 12px;
+  }
+  .forecast-range .label { font-size: 13px; color: rgba(227,242,253,0.5); min-width: 60px; }
+  .forecast-range .range-bar {
+    flex: 1; height: 8px; border-radius: 4px;
+    background: rgba(255,255,255,0.08); position: relative; overflow: hidden;
+  }
+  .forecast-range .range-fill {
+    height: 100%; border-radius: 4px;
+    background: linear-gradient(90deg, #3B82F6, #8B5CF6);
+  }
+  .forecast-range .range-val { font-size: 14px; font-weight: 600; color: #C4B5FD; min-width: 120px; text-align: right; }
+
+  /* 行事曆 */
+  .calendar-item {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px; padding: 20px; margin-bottom: 12px;
+    animation: fadeUp 0.5s ease both;
+    transition: all 0.3s ease;
+  }
+  .calendar-item:hover { border-color: rgba(139,92,246,0.3); background: rgba(139,92,246,0.05); }
+  .calendar-item .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .calendar-item .cal-time { font-size: 13px; font-weight: 600; color: #A78BFA; }
+  .calendar-item .cal-importance {
+    padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 600;
+  }
+  .imp-critical { background: rgba(239,68,68,0.2); color: #FCA5A5; }
+  .imp-high { background: rgba(251,191,36,0.2); color: #FDE68A; }
+  .imp-medium { background: rgba(59,130,246,0.2); color: #93C5FD; }
+  .calendar-item .cal-event { font-size: 15px; font-weight: 600; color: #F3F4F6; margin-bottom: 8px; }
+  .calendar-item .cal-data { font-size: 13px; color: rgba(227,242,253,0.55); margin-bottom: 6px; }
+  .calendar-item .cal-analysis { font-size: 13px; color: rgba(227,242,253,0.65); line-height: 1.8; }
+
+  /* Regime 迷你 */
+  .regime-mini {
+    display: flex; align-items: center; gap: 16px;
+    padding: 16px 20px; border-radius: 12px;
+    background: rgba(255,255,255,0.04); margin-top: 14px;
+  }
+  .regime-mini .score { font-size: 32px; font-weight: 700; color: #FBBF24; }
+  .regime-mini .info { font-size: 13px; color: rgba(227,242,253,0.55); }
+  .regime-mini .info strong { color: #FBBF24; }
+
+  /* 標籤 */
+  .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; animation: fadeUp 0.5s ease 0.25s both; }
+  .tag-cloud span { padding: 4px 12px; border-radius: 16px; font-size: 12px; background: rgba(255,255,255,0.04); color: rgba(227,242,253,0.5); border: 1px solid rgba(255,255,255,0.06); }
+
+  /* 光線 */
+  .glow-line { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(139,92,246,0.5), transparent); margin: 28px 0; animation: shimmer 3s ease-in-out infinite; }
+
+  .footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; }
+  .footer p { font-size: 12px; color: rgba(227,242,253,0.25); }
+  .footer .powered { margin-top: 4px; font-size: 11px; color: rgba(139,92,246,0.35); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes shimmer { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">V</div>
+    <div class="header-text">
+      <h1>薇拉早報</h1>
+      <div class="subtitle">Vera Morning Brief</div>
+    </div>
+  </div>
+  <div class="date-badge">
+    <span>2026-04-08（二）｜超級數據週 Day 1</span>
+  </div>
+
+  <!-- ═══ 一、市場總覽分析 ═══ -->
+  <div class="section">
+    <div class="section-title">市場總覽</div>
+
+    <div class="alert-card">
+      <h3>停火消息引爆全面反彈，但兩週期限暗藏變數</h3>
+      <p>Trump 宣布暫停轟炸伊朗兩週，條件是開放荷莫茲海峽。伊朗外長回應允許「協調通行」。消息一出，油價從 $117 暴跌至 ~$103（-8%），風險資產全面反彈：標普期貨 +1.6%、納指 +1.8%、BTC +4.23% 突破 $71K。</p>
+      <p>然而，IEA 警告這是「比 1973+1979+2002 合計更嚴重的能源危機」。波灣煉油設施修復需數月，航運恢復至少兩個月。<strong>兩週停火是喘息窗口，不是和平協議。</strong>市場目前在交易「最好的情境」，一旦停火破裂，回吐速度會比上漲更快。</p>
+      <div class="data-support">
+        <span class="data-chip chip-down">WTI <span class="val">$103 (-8%)</span></span>
+        <span class="data-chip chip-up">S&P 期貨 <span class="val">+1.6%</span></span>
+        <span class="data-chip chip-up">納指期貨 <span class="val">+1.8%</span></span>
+        <span class="data-chip">荷莫茲 <span class="val">仍實質關閉</span></span>
+      </div>
+    </div>
+
+    <div class="analysis-card">
+      <h3>美股：科技與能源蹺蹺板，類股輪動訊號明確</h3>
+      <p>停火消息讓資金從避險資產（能源、黃金）流向成長股。<strong>能源股面臨獲利了結壓力</strong>（油價從高點回落 12%），科技和半導體有望接棒領漲。金融股受惠於殖利率穩定和風險情緒改善。</p>
+      <p>但三大指數仍在關稅衝擊後的修復階段。S&P 500 距離 3 月高點仍有約 5% 的缺口。<strong>FOMC Minutes 今晚的措辭將決定反彈能否延續</strong> — 若偏鷹（強調通膨黏性），科技股的反彈可能短命。</p>
+      <div class="data-support">
+        <span class="data-chip chip-up">S&P 500 <span class="val">5,062 (+1.5%)</span></span>
+        <span class="data-chip chip-up">NASDAQ <span class="val">15,603 (+1.8%)</span></span>
+        <span class="data-chip chip-up">道瓊 <span class="val">38,200 (+1.2%)</span></span>
+        <span class="data-chip">VIX <span class="val">24.17</span></span>
+      </div>
+    </div>
+
+    <div class="analysis-card">
+      <h3>大宗商品：油價暴跌是機會還是陷阱？</h3>
+      <p>WTI 從 $117 跌至 $103，短線看似利空解除，但全球仍有 750 萬桶/日的產能被迫關閉（沙烏地、阿聯、科威特、卡達、巴林），估計 4 月將升至 910 萬桶/日。<strong>即使停火成功，供給修復需 2-3 個月，油價回到 $80 前的常態幾乎不可能。</strong></p>
+      <p>黃金小幅回落但仍在高位，反映市場對停火持續性的不信任。美元指數持穩，CPI 前缺乏方向。</p>
+      <div class="data-support">
+        <span class="data-chip chip-down">WTI <span class="val">$103 (-8%)</span></span>
+        <span class="data-chip chip-down">黃金 <span class="val">$2,340 (-0.5%)</span></span>
+        <span class="data-chip">美元指數 <span class="val">104.2</span></span>
+        <span class="data-chip">EIA 預估油價 <span class="val">$4.30/gal 高峰</span></span>
+      </div>
+    </div>
+
+    <div class="analysis-card">
+      <h3>加密市場：恐慌中的反彈，機構在抄底</h3>
+      <p>BTC 從 $67,730 反彈至 $71,687（+4.23%），ETH +6.09%，山寨幣更強（ADA +7.46%、DOT +7.17%、SOL +6.96%）。<strong>BTC 現貨 ETF 昨日流入 $4.71 億</strong>（年度第 6 大），顯示機構在恐慌中逢低布局。</p>
+      <p>但 Fear & Greed 仍在 11（極度恐慌），HMM 熊市機率 83%，Deribit 選擇權 skew 偏高 — 機構口頭看多、手上仍在避險。<strong>這波反彈更像是空頭回補 + 停火消息驅動，而非趨勢反轉。</strong>CPI 若超預期，可能會把今天的漲幅全部吃回。</p>
+      <p>值得注意：Strategy（MSTR）Q1 虧損 $145 億後仍加碼 $3.3 億買入 BTC，持倉達 766,970 顆。XRP ETF 累計流入 $12 億後停滯，3 月流入暴跌 99%。</p>
+      <div class="data-support">
+        <span class="data-chip chip-up">BTC <span class="val">$71,687 (+4.23%)</span></span>
+        <span class="data-chip chip-up">ETH <span class="val">$2,229 (+6.09%)</span></span>
+        <span class="data-chip chip-up">SOL <span class="val">$85.61 (+6.96%)</span></span>
+        <span class="data-chip">FNG <span class="val">11 極度恐慌</span></span>
+        <span class="data-chip chip-up">ETF 流入 <span class="val">$4.71 億</span></span>
+      </div>
+
+      <div class="regime-mini">
+        <div class="score">+8.7</div>
+        <div class="info">
+          Regime Signal: <strong>NEUTRAL</strong><br>
+          鏈上看多(+29.5) vs ML看空(-10) 對立<br>
+          Event Blackout 模式 — 倉位 ×0.5<br>
+          <strong style="color:#F87171;">不允許新開倉</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="glow-line"></div>
+
+  <!-- ═══ 二、台股盤前展望 ═══ -->
+  <div class="section">
+    <div class="section-title">台股盤前展望</div>
+
+    <div class="forecast-card">
+      <h3>預測：小幅高開後震盪，等待 FOMC 指引</h3>
+
+      <p><strong>推理邏輯：</strong>昨日台股已先漲 +2%（押注停火），今天美股期貨再漲 1.6%，加上油價暴跌利好台灣製造業成本。但昨天的漲幅已部分反映停火利好，今天追漲空間有限。FOMC Minutes 今晚 02:00 公布，盤中可能觀望氣氛濃厚。</p>
+
+      <p><strong>關鍵變數：</strong></p>
+      <p>1. 油價回落 → 台塑、航運等成本敏感股受惠，但能源股可能回吐<br>
+      2. 台幣匯率穩定 → 電子股出口端中性<br>
+      3. 費半期貨走高 → 台積電有望撐盤<br>
+      4. 昨日 +2% 已反映部分利好 → 追漲力道受限</p>
+
+      <div class="forecast-range">
+        <div class="label">開盤</div>
+        <div class="range-bar"><div class="range-fill" style="width:65%;"></div></div>
+        <div class="range-val">19,850 — 20,050</div>
+      </div>
+      <div class="forecast-range">
+        <div class="label">收盤</div>
+        <div class="range-bar"><div class="range-fill" style="width:55%;"></div></div>
+        <div class="range-val">19,750 — 20,100</div>
+      </div>
+      <div class="forecast-range">
+        <div class="label">信心度</div>
+        <div class="range-bar"><div class="range-fill" style="width:45%;background:linear-gradient(90deg,#FBBF24,#F59E0B);"></div></div>
+        <div class="range-val">45%（中低）</div>
+      </div>
+
+      <p style="margin-top:14px;"><strong>薇拉觀點：</strong>偏多但不追高。若開盤跳空高開超過 20,100，建議觀望不追；若回測 19,800 附近有支撐，短線偏多。FOMC 結果出來前，大盤難有方向性突破。</p>
+      <p style="font-size:12px;color:rgba(227,242,253,0.4);margin-top:8px;">（明日將驗證此預測，分析偏差原因）</p>
+    </div>
+  </div>
+
+  <div class="glow-line"></div>
+
+  <!-- ═══ 三、本周重點行事曆 (GMT+8) ═══ -->
+  <div class="section">
+    <div class="section-title">本周重點行事曆 (GMT+8)</div>
+
+    <div class="calendar-item">
+      <div class="cal-header">
+        <span class="cal-time">4/8（二）02:00</span>
+        <span class="cal-importance imp-high">HIGH</span>
+      </div>
+      <div class="cal-event">FOMC Meeting Minutes（3 月會議紀要）</div>
+      <div class="cal-data">前次：1 月會議維持 3.5-3.75% 不變，Miran/Waller 投反對票主張降息</div>
+      <div class="cal-analysis">
+        <strong>關注重點：</strong>委員對通膨黏性的措辭、關稅衝擊評估、縮表討論。<br>
+        <strong>若偏鴿（暗示下半年降息）：</strong>科技股反彈延續，美元走弱，BTC 受惠。<br>
+        <strong>若偏鷹（強調通膨風險）：</strong>10Y 殖利率上升，成長股承壓，今日反彈可能短命。<br>
+        <strong>薇拉判斷：</strong>偏中性偏鷹機率較高（油價飆升加劇通膨擔憂），但停火消息可能緩和措辭。
+      </div>
+    </div>
+
+    <div class="calendar-item">
+      <div class="cal-header">
+        <span class="cal-time">4/9（三）20:30</span>
+        <span class="cal-importance imp-critical">CRITICAL</span>
+      </div>
+      <div class="cal-event">CPI YoY + Core CPI</div>
+      <div class="cal-data">
+        CPI YoY：前值 2.8% → 預測 2.6%<br>
+        Core CPI：前值 3.1% → 預測 3.0%
+      </div>
+      <div class="cal-analysis">
+        <strong>本週最關鍵數據 — 決定降息預期走向。</strong><br>
+        <strong>若 CPI ≤ 2.5%（低於預期）：</strong>降息預期升溫，風險資產全面反彈。BTC 可能突破 $73K，S&P 回測 5,200。機率 25%。<br>
+        <strong>若 CPI 2.5-2.7%（符合預期）：</strong>市場小幅波動後回穩，維持現有格局。機率 45%。<br>
+        <strong>若 CPI ≥ 2.8%（高於預期）：</strong>通膨黏性確認，降息延後，成長股承壓。BTC 可能回測 $68K。機率 30%。<br>
+        <strong>特別注意：</strong>油價飆升尚未完全反映在 3 月 CPI 中（荷莫茲 3 月中才關閉），真正的通膨壓力可能在 4-5 月 CPI 才顯現。
+      </div>
+    </div>
+
+    <div class="calendar-item">
+      <div class="cal-header">
+        <span class="cal-time">4/10（四）20:30</span>
+        <span class="cal-importance imp-high">HIGH</span>
+      </div>
+      <div class="cal-event">PPI + Initial Jobless Claims</div>
+      <div class="cal-data">
+        PPI YoY：前值 3.2% → 預測 3.0%<br>
+        初領失業金：前值 21.9 萬
+      </div>
+      <div class="cal-analysis">
+        <strong>生產端通膨 + 就業健康度的交叉驗證。</strong><br>
+        <strong>若 PPI 下降 + 失業金持穩：</strong>通膨降溫+就業穩健 = 軟著陸敘事強化，利好風險資產。<br>
+        <strong>若 PPI 上升 + 失業金上升：</strong>停滯性通膨（stagflation）擔憂，最糟情境，股債雙殺。<br>
+        PPI 是 CPI 的領先指標 — 如果 PPI 沒降，下個月 CPI 也很難降。
+      </div>
+    </div>
+
+    <div class="calendar-item">
+      <div class="cal-header">
+        <span class="cal-time">4/11（五）22:00</span>
+        <span class="cal-importance imp-medium">MEDIUM</span>
+      </div>
+      <div class="cal-event">UMich Consumer Sentiment（初值）</div>
+      <div class="cal-data">前值：57.0 → 預測：55.0</div>
+      <div class="cal-analysis">
+        消費者信心受油價飆升和關稅影響可能續降。若低於 50 將是 2022 年以來最低，可能引發消費衰退擔憂。但市場影響力低於 CPI/PPI，除非數據極端偏離。
+      </div>
+    </div>
+
+    <div class="calendar-item">
+      <div class="cal-header">
+        <span class="cal-time">4/22（二）</span>
+        <span class="cal-importance imp-critical">CRITICAL</span>
+      </div>
+      <div class="cal-event">伊朗停火到期日</div>
+      <div class="cal-data">兩週停火窗口結束</div>
+      <div class="cal-analysis">
+        <strong>這是懸在市場頭上的達摩克利斯之劍。</strong>若屆時未達成長期協議，荷莫茲將再度面臨封鎖風險，油價可能報復性反彈至 $120+。所有基於「停火利好」的交易都將逆轉。建議在此日期前降低風險敞口。
+      </div>
+    </div>
+  </div>
+
+  <div class="glow-line"></div>
+
+  <!-- ═══ 四、薇拉觀點總結 ═══ -->
+  <div class="section">
+    <div class="section-title">薇拉觀點</div>
+
+    <div class="analysis-card">
+      <h3>結論：享受反彈，但不要愛上它</h3>
+      <p>停火消息是本輪反彈的催化劑，但市場正在用「最樂觀的假設」定價。三個現實問題尚未解決：</p>
+      <p><strong>1. 兩週後呢？</strong>停火到期（4/22）前如果沒有突破性進展，所有漲幅都可能回吐。</p>
+      <p><strong>2. 通膨怎麼辦？</strong>即使油價回到 $103，仍比半年前高 30%+。荷莫茲危機造成的供應鏈衝擊需要 3-6 個月才能消化。明天的 CPI 會是第一個檢驗點。</p>
+      <p><strong>3. 聯準會的態度？</strong>油價飆升 + 關稅 = 雙重通膨壓力。Fed 可能被迫維持高利率更久，這對成長股和加密市場是中期利空。</p>
+      <p><strong>操作建議：觀望為主。</strong>CPI（明天 20:30）出來前不要做方向性押注。如果非要做，寧可在反彈中減倉，也不要在恐慌中追漲。</p>
+    </div>
+  </div>
+
+  <!-- 標籤 -->
+  <div class="tag-cloud">
+    <span>兩週停火</span>
+    <span>油價暴跌 8%</span>
+    <span>FOMC Minutes</span>
+    <span>CPI 超級數據週</span>
+    <span>BTC ETF $4.7億流入</span>
+    <span>MSTR 加碼</span>
+    <span>Regime 中性</span>
+    <span>FNG=11 極恐</span>
+  </div>
+
+  <div class="footer">
+    <p>薇拉早報 ｜ 2026-04-08 07:00 (UTC+8)</p>
+    <p class="powered">Powered by Vera Market Intelligence</p>
+  </div>
+
+</div>
+</body>
+</html>
