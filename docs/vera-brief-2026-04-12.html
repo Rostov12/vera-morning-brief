@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>薇拉早報 — 2026-04-12</title>
+<style>
+
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #000; color: #E3F2FD;
+    font-family: 'Inter', 'Noto Sans TC', -apple-system, sans-serif;
+    line-height: 1.85; overflow-x: hidden;
+  }
+  body::before {
+    content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 85% 90%, rgba(139,92,246,0.08), transparent),
+      radial-gradient(ellipse 50% 40% at 10% 15%, rgba(59,130,246,0.06), transparent);
+    pointer-events: none; z-index: 0;
+  }
+  .container { max-width: 780px; margin: 0 auto; padding: 40px 24px 60px; position: relative; z-index: 1; }
+  .header { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; animation: fadeDown 0.6s ease both; }
+  .logo { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, #8B5CF6, #3B82F6); display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; box-shadow: 0 0 20px rgba(139,92,246,0.3); }
+  .header-text h1 { font-size: 22px; font-weight: 700; background: linear-gradient(135deg, #C4B5FD, #93C5FD); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .header-text .subtitle { font-size: 13px; color: rgba(227,242,253,0.5); font-weight: 300; }
+  .date-badge { margin: 12px 0 32px; animation: fadeDown 0.6s ease 0.1s both; }
+  .date-badge span { display: inline-block; padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; color: rgba(227,242,253,0.6); border: 1px solid rgba(139,92,246,0.3); background: rgba(139,92,246,0.08); }
+  .section { margin-bottom: 40px; }
+  .section-title { font-size: 15px; font-weight: 600; color: #A78BFA; letter-spacing: 1px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(139,92,246,0.3), transparent); }
+  .analysis-card {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(139,92,246,0.15);
+    border-radius: 16px; padding: 28px; margin-bottom: 16px;
+    animation: fadeUp 0.5s ease both;
+  }
+  .analysis-card h3 { font-size: 17px; font-weight: 600; color: #F3F4F6; margin-bottom: 12px; }
+  .analysis-card p { font-size: 14px; color: rgba(227,242,253,0.72); margin-bottom: 12px; }
+  .analysis-card p:last-child { margin-bottom: 0; }
+  .data-support {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    margin-top: 14px; padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .data-chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 12px; border-radius: 20px; font-size: 12px;
+    background: rgba(255,255,255,0.04); color: rgba(227,242,253,0.55);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .data-chip .val { font-weight: 600; }
+  .chip-up .val { color: #34D399; }
+  .chip-down .val { color: #F87171; }
+  .alert-card {
+    background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.2);
+    border-radius: 16px; padding: 28px; margin-bottom: 16px;
+    animation: fadeUp 0.5s ease both;
+  }
+  .alert-card h3 { color: #FCA5A5; font-size: 17px; font-weight: 600; margin-bottom: 12px; }
+  .alert-card p { font-size: 14px; color: rgba(227,242,253,0.72); margin-bottom: 12px; }
+  .forecast-card {
+    background: rgba(59,130,246,0.06); border: 1px solid rgba(59,130,246,0.2);
+    border-radius: 16px; padding: 28px; margin-bottom: 16px;
+    animation: fadeUp 0.5s ease both;
+  }
+  .forecast-card h3 { color: #93C5FD; font-size: 17px; font-weight: 600; margin-bottom: 12px; }
+  .forecast-card p { font-size: 14px; color: rgba(227,242,253,0.72); margin-bottom: 12px; }
+  .forecast-range {
+    display: flex; align-items: center; gap: 12px;
+    margin: 16px 0; padding: 16px 20px;
+    background: rgba(255,255,255,0.04); border-radius: 12px;
+  }
+  .forecast-range .label { font-size: 13px; color: rgba(227,242,253,0.5); min-width: 60px; }
+  .forecast-range .range-bar {
+    flex: 1; height: 8px; border-radius: 4px;
+    background: rgba(255,255,255,0.08); position: relative; overflow: hidden;
+  }
+  .forecast-range .range-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #3B82F6, #8B5CF6); }
+  .forecast-range .range-val { font-size: 14px; font-weight: 600; color: #C4B5FD; min-width: 120px; text-align: right; }
+  .risk-panel {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 600px) { .risk-panel { grid-template-columns: 1fr; } }
+  .risk-switch {
+    background: rgba(255,255,255,0.03); border-radius: 14px; padding: 20px;
+    text-align: center; border: 1px solid rgba(255,255,255,0.06);
+    animation: fadeUp 0.5s ease both;
+  }
+  .risk-switch .switch-name { font-size: 12px; color: rgba(227,242,253,0.5); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .risk-switch .switch-value { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .risk-switch .switch-desc { font-size: 12px; color: rgba(227,242,253,0.5); }
+  .switch-green .switch-value { color: #34D399; }
+  .switch-yellow .switch-value { color: #FBBF24; }
+  .switch-red .switch-value { color: #F87171; }
+  .switch-green { border-color: rgba(52,211,153,0.2); }
+  .switch-yellow { border-color: rgba(251,191,36,0.2); }
+  .switch-red { border-color: rgba(239,68,68,0.2); }
+  .scenario-card {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px; padding: 20px; margin-bottom: 12px;
+    animation: fadeUp 0.5s ease both;
+  }
+  .scenario-card .sc-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .scenario-card .sc-label { font-size: 15px; font-weight: 600; color: #F3F4F6; }
+  .scenario-card .sc-prob { padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+  .prob-high { background: rgba(52,211,153,0.2); color: #6EE7B7; }
+  .prob-mid { background: rgba(251,191,36,0.2); color: #FDE68A; }
+  .prob-low { background: rgba(239,68,68,0.2); color: #FCA5A5; }
+  .scenario-card .sc-desc { font-size: 14px; color: rgba(227,242,253,0.65); margin-bottom: 8px; }
+  .scenario-card .sc-action { font-size: 13px; color: #A78BFA; font-weight: 500; }
+  .capital-advice {
+    background: rgba(139,92,246,0.08); border: 1px solid rgba(139,92,246,0.2);
+    border-radius: 12px; padding: 16px 20px; margin-top: 16px;
+    font-size: 14px; color: #C4B5FD; text-align: center;
+  }
+  .calendar-item {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px; padding: 20px; margin-bottom: 12px;
+    animation: fadeUp 0.5s ease both; transition: all 0.3s ease;
+  }
+  .calendar-item:hover { border-color: rgba(139,92,246,0.3); background: rgba(139,92,246,0.05); }
+  .calendar-item .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .calendar-item .cal-time { font-size: 13px; font-weight: 600; color: #A78BFA; }
+  .calendar-item .cal-importance { padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+  .imp-critical { background: rgba(239,68,68,0.2); color: #FCA5A5; }
+  .imp-high { background: rgba(251,191,36,0.2); color: #FDE68A; }
+  .imp-medium { background: rgba(59,130,246,0.2); color: #93C5FD; }
+  .calendar-item .cal-event { font-size: 15px; font-weight: 600; color: #F3F4F6; margin-bottom: 8px; }
+  .calendar-item .cal-data { font-size: 13px; color: rgba(227,242,253,0.55); margin-bottom: 6px; }
+  .calendar-item .cal-analysis { font-size: 13px; color: rgba(227,242,253,0.65); line-height: 1.8; }
+  .regime-mini {
+    display: flex; align-items: center; gap: 16px;
+    padding: 16px 20px; border-radius: 12px;
+    background: rgba(255,255,255,0.04); margin-top: 14px;
+  }
+  .regime-mini .score { font-size: 32px; font-weight: 700; color: #FBBF24; }
+  .regime-mini .info { font-size: 13px; color: rgba(227,242,253,0.55); }
+  .regime-mini .info strong { color: #FBBF24; }
+  .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; animation: fadeUp 0.5s ease 0.25s both; }
+  .tag-cloud span { padding: 4px 12px; border-radius: 16px; font-size: 12px; background: rgba(255,255,255,0.04); color: rgba(227,242,253,0.5); border: 1px solid rgba(255,255,255,0.06); }
+  .glow-line { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(139,92,246,0.5), transparent); margin: 28px 0; animation: shimmer 3s ease-in-out infinite; }
+  .footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; }
+  .footer p { font-size: 12px; color: rgba(227,242,253,0.25); }
+  .footer .powered { margin-top: 4px; font-size: 11px; color: rgba(139,92,246,0.35); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes shimmer { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="logo">V</div>
+    <div class="header-text">
+      <h1>薇拉早報</h1>
+      <div class="subtitle">Vera Morning Brief</div>
+    </div>
+  </div>
+  <div class="date-badge">
+    <span>2026-04-12（日）</span>
+  </div>
+
+  <!-- ═══ 一、市場總覽 ═══ -->
+  <div class="section">
+    <div class="section-title">市場總覽</div>
+
+    <div class="analysis-card">
+      <h3>美股窄幅盤整，等待方向</h3>
+      <p>S&amp;P 500 收 -0.11%，Nasdaq +0.35%，道瓊 -0.56%。VIX 19.2，波動率尚未回到安全區（18 以下）。</p>
+      <div class="data-support">
+        <span class="data-chip chip-down">S&P 500 <span class="val">6,817 (-0.11%)</span></span><span class="data-chip chip-up">NASDAQ <span class="val">22,903 (+0.35%)</span></span><span class="data-chip chip-down">道瓊 <span class="val">47,917 (-0.56%)</span></span><span class="data-chip">VIX <span class="val">19.2</span></span>
+      </div>
+    </div>
+
+    <div class="analysis-card">
+      <h3>類股輪動：Risk-On 格局，科技成長領漲</h3>
+      <p>領漲：半導體 +1.5%、原物料 +0.6%。落後：必需消費 -1.3%、醫療 -1.4%。</p>
+      <div class="data-support">
+        <span class="data-chip chip-up">半導體 <span class="val">+1.5%</span></span><span class="data-chip chip-up">原物料 <span class="val">+0.6%</span></span><span class="data-chip chip-up">科技 <span class="val">+0.4%</span></span><span class="data-chip chip-up">房地產 <span class="val">+0.2%</span></span><span class="data-chip chip-up">非必需消費 <span class="val">+0.1%</span></span>
+      </div>
+    </div>
+
+    <div class="analysis-card">
+      <h3>大宗商品與匯率動態</h3>
+      <p>WTI 原油 $96.6/桶（-1.3%）。黃金下跌至 $4,762/oz（-0.6%）。美元指數 98.65（-0.2%）。</p>
+      <div class="data-support">
+        <span class="data-chip chip-down">WTI <span class="val">$96.6 (-1.3%)</span></span><span class="data-chip chip-down">黃金 <span class="val">$4,762 (-0.6%)</span></span><span class="data-chip chip-down">DXY <span class="val">98.65 (-0.2%)</span></span>
+      </div>
+    </div>
+
+    <div class="analysis-card">
+      <h3>加密市場</h3>
+      <p>BTC $73,354（+0.6%）、ETH $2,295（+2.3%）、SOL $85.2（+0.5%）。Fear &amp; Greed 15（極度恐慌）。</p>
+      <div class="data-support">
+        <span class="data-chip chip-up">BTC <span class="val">$73,354 (+0.6%)</span></span><span class="data-chip chip-up">ETH <span class="val">$2,295 (+2.3%)</span></span><span class="data-chip chip-up">SOL <span class="val">$85.2 (+0.5%)</span></span><span class="data-chip">FNG <span class="val">15 Extreme Fear</span></span>
+      </div>
+      
+      <div class="regime-mini">
+        <div class="score">+12.4</div>
+        <div class="info">
+          Regime Signal: <strong>BULLISH</strong><br>
+          <strong style="color:#F87171;">不允許新開倉</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="glow-line"></div>
+
+  <!-- ═══ 二、風險開關面板（通勤族） ═══ -->
+  <div class="section">
+    <div class="section-title">風險開關面板</div>
+    <div class="risk-panel">
+      
+    <div class="risk-switch switch-yellow">
+      <div class="switch-name">VIX 波動率</div>
+      <div class="switch-value">19.2</div>
+      <div class="switch-desc">警戒，波動率偏高</div>
+    </div>
+    <div class="risk-switch switch-green">
+      <div class="switch-name">技術動能</div>
+      <div class="switch-value">RSI 67</div>
+      <div class="switch-desc">多頭動能充沛</div>
+    </div>
+    <div class="risk-switch switch-green">
+      <div class="switch-name">油價壓力</div>
+      <div class="switch-value">$97 (-1.3%)</div>
+      <div class="switch-desc">油價可控</div>
+    </div>
+    </div>
+  </div>
+
+  
+  <div class="glow-line"></div>
+  <div class="section">
+    <div class="section-title">台股盤前展望</div>
+    <div class="forecast-card">
+      <h3>台股（前日收盤 35,418）</h3>
+      <p><strong>關鍵變數：</strong></p>
+      <p>1. 前日漲幅尚可，今日空間受壓</p>
+      <div class="forecast-range">
+        <div class="label">開盤</div>
+        <div class="range-bar"><div class="range-fill" style="width:60%;"></div></div>
+        <div class="range-val">35,350 — 35,700</div>
+      </div>
+      <div class="forecast-range">
+        <div class="label">收盤</div>
+        <div class="range-bar"><div class="range-fill" style="width:50%;"></div></div>
+        <div class="range-val">35,250 — 35,600</div>
+      </div>
+      <div class="forecast-range">
+        <div class="label">信心度</div>
+        <div class="range-bar"><div class="range-fill" style="width:40%;background:linear-gradient(90deg,#FBBF24,#F59E0B);"></div></div>
+        <div class="range-val">40%（中）</div>
+      </div>
+      <p style="font-size:12px;color:rgba(227,242,253,0.4);margin-top:8px;">（明日將驗證此預測，分析偏差原因）</p>
+    </div>
+  </div>
+
+  <div class="glow-line"></div>
+
+  <!-- ═══ 三、情境推演（尼可拉斯楊） ═══ -->
+  <div class="section">
+    <div class="section-title">情境推演</div>
+    
+    <div class="scenario-card">
+      <div class="sc-header">
+        <span class="sc-label">A — 核心通膨受控，市場消化後回穩</span>
+        <span class="sc-prob prob-high">45%</span>
+      </div>
+      <div class="sc-desc">CPI 已公布：整體 3.30% / 核心 2.60%。核心低於預期 → 市場解讀為能源一次性衝擊，風險資產修復。</div>
+      <div class="sc-action">操作：維持現有部位，等PPI確認後可加碼成長股</div>
+    </div>
+    <div class="scenario-card">
+      <div class="sc-header">
+        <span class="sc-label">B — 通膨疑慮延續，高波動盤整</span>
+        <span class="sc-prob prob-mid">35%</span>
+      </div>
+      <div class="sc-desc">整體 CPI 跳升至 3.30% 引發市場分歧，多空拉鋸。需等 PPI + 零售銷售交叉確認。</div>
+      <div class="sc-action">操作：不追高不殺低，降低槓桿等確認</div>
+    </div>
+    <div class="scenario-card">
+      <div class="sc-header">
+        <span class="sc-label">C — 再通膨恐慌擴大</span>
+        <span class="sc-prob prob-low">20%</span>
+      </div>
+      <div class="sc-desc">市場擔憂能源通膨傳導至核心服務，10Y殖利率上行，成長股承壓。</div>
+      <div class="sc-action">操作：減倉防禦，增加現金/公用事業比重</div>
+    </div>
+    <div class="capital-advice">
+      資金配置建議：Regime 不允許開倉：資金 100% 現金/穩定幣，等信號翻轉
+    </div>
+  </div>
+
+  
+
+  <div class="glow-line"></div>
+
+  <!-- ═══ 四、薇拉觀點 ═══ -->
+  <div class="section">
+    <div class="section-title">薇拉觀點</div>
+    <div class="analysis-card">
+      <h3>綜合判斷</h3>
+      <p>市場主線：CPI 已公布 — 消化數據中。CPI YoY 3.30%（核心 2.60%），市場正在消化通膨數據。 風險面板多數安全，可適度進攻。 Regime Signal +12.4 不允許新開倉——系統面封鎖，嚴格遵守。 FNG 15 極度恐慌——歷史上是反向買入區間，但需催化劑確認。 資金配置：Regime 不允許開倉：資金 100% 現金/穩定幣，等信號翻轉。</p>
+    </div>
+  </div>
+
+  <div class="tag-cloud">
+    <span>CPI 已公布 — 消化數據中</span><span>BTC $73,354</span><span>FNG=15</span><span>Regime bullish</span>
+  </div>
+
+  <div class="footer">
+    <p>薇拉早報 ｜ 2026-04-12 06:57 (UTC+8)</p>
+    <p class="powered">Powered by Vera Market Intelligence</p>
+  </div>
+
+</div>
+</body>
+</html>
