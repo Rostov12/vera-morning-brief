@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>薇拉早報 v2 — 2026-04-15</title>
+<style>
+
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #000; color: #E3F2FD;
+    font-family: 'Inter', 'Noto Sans TC', -apple-system, sans-serif;
+    line-height: 1.85; overflow-x: hidden;
+  }
+  body::before {
+    content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 85% 90%, rgba(139,92,246,0.08), transparent),
+      radial-gradient(ellipse 50% 40% at 10% 15%, rgba(59,130,246,0.06), transparent);
+    pointer-events: none; z-index: 0;
+  }
+  .container { max-width: 780px; margin: 0 auto; padding: 40px 24px 60px; position: relative; z-index: 1; }
+  .header { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; animation: fadeDown 0.6s ease both; }
+  .logo { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, #8B5CF6, #3B82F6); display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; box-shadow: 0 0 20px rgba(139,92,246,0.3); }
+  .header-text h1 { font-size: 22px; font-weight: 700; background: linear-gradient(135deg, #C4B5FD, #93C5FD); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .header-text .subtitle { font-size: 13px; color: rgba(227,242,253,0.5); font-weight: 300; }
+  .date-badge { margin: 12px 0 32px; animation: fadeDown 0.6s ease 0.1s both; }
+  .date-badge span { display: inline-block; padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; color: rgba(227,242,253,0.6); border: 1px solid rgba(139,92,246,0.3); background: rgba(139,92,246,0.08); }
+  .section { margin-bottom: 40px; }
+  .section-title { font-size: 15px; font-weight: 600; color: #A78BFA; letter-spacing: 1px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(139,92,246,0.3), transparent); }
+
+  /* 快照表格 */
+  .overall-tag { font-size: 18px; font-weight: 700; color: #C4B5FD; margin-bottom: 16px; text-align: center; }
+  .snapshot-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+  .snapshot-table th { font-size: 12px; color: rgba(227,242,253,0.4); text-transform: uppercase; letter-spacing: 0.5px; padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.08); text-align: left; }
+  .snapshot-table td { padding: 8px 12px; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .snapshot-table .tag-cell { font-size: 12px; color: rgba(227,242,253,0.5); }
+
+  /* 卡片 */
+  .analysis-card {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(139,92,246,0.15);
+    border-radius: 16px; padding: 28px; margin-bottom: 16px;
+    animation: fadeUp 0.5s ease both;
+  }
+  .analysis-card h3 { font-size: 17px; font-weight: 600; color: #F3F4F6; margin-bottom: 12px; }
+  .analysis-card p { font-size: 14px; color: rgba(227,242,253,0.72); margin-bottom: 12px; }
+  .analysis-card p:last-child { margin-bottom: 0; }
+  .diff-note { font-size: 13px; color: rgba(227,242,253,0.4); font-style: italic; margin-top: 8px; }
+
+  /* 數據支撐 */
+  .data-support { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.05); }
+  .data-chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 20px; font-size: 12px; background: rgba(255,255,255,0.04); color: rgba(227,242,253,0.55); border: 1px solid rgba(255,255,255,0.06); }
+  .data-chip .val { font-weight: 600; }
+  .chip-up .val { color: #34D399; }
+  .chip-down .val { color: #F87171; }
+
+  /* 信號列表 */
+  .signal-list { list-style: none; padding: 0; }
+  .signal-list li { font-size: 14px; color: rgba(227,242,253,0.72); padding: 4px 0; padding-left: 16px; position: relative; }
+  .signal-list li::before { content: '·'; position: absolute; left: 0; color: #A78BFA; }
+
+  /* 結論框 */
+  .conclusion-box { background: rgba(139,92,246,0.08); border: 1px solid rgba(139,92,246,0.2); border-radius: 12px; padding: 16px 20px; font-size: 14px; color: #C4B5FD; text-align: center; margin-top: 16px; }
+
+  /* 新聞影響鏈 */
+  .impact-chain { margin-top: 12px; padding: 12px; background: rgba(255,255,255,0.02); border-radius: 8px; }
+  .chain-step { font-size: 13px; color: rgba(227,242,253,0.6); padding: 4px 0 4px 12px; border-left: 2px solid rgba(139,92,246,0.3); margin-bottom: 4px; }
+  .chain-step.invalidation { border-left-color: rgba(239,68,68,0.4); color: rgba(252,165,165,0.7); }
+  .source-tier { font-size: 11px; padding: 2px 8px; border-radius: 10px; margin-right: 8px; }
+  .tier-1 { background: rgba(52,211,153,0.2); color: #6EE7B7; }
+  .tier-2 { background: rgba(251,191,36,0.2); color: #FDE68A; }
+  .tier-3 { background: rgba(255,255,255,0.08); color: rgba(227,242,253,0.5); }
+
+  /* 催化劑 */
+  .catalyst-item { padding: 12px 16px; margin-bottom: 8px; border-radius: 12px; font-size: 14px; color: rgba(227,242,253,0.72); background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); }
+  .cat-badge { font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 10px; margin-right: 10px; }
+  .cat-badge.hot { background: rgba(239,68,68,0.2); color: #FCA5A5; }
+  .cat-badge.warm { background: rgba(251,191,36,0.2); color: #FDE68A; }
+  .cat-badge.cool { background: rgba(59,130,246,0.2); color: #93C5FD; }
+  .narrative-changer { margin-top: 12px; padding: 12px 16px; border-radius: 12px; background: rgba(139,92,246,0.1); border: 1px solid rgba(139,92,246,0.3); font-size: 14px; color: #C4B5FD; font-weight: 500; }
+
+  /* Regime 儀表板 */
+  .regime-dashboard { background: rgba(255,255,255,0.03); border: 1px solid rgba(139,92,246,0.15); border-radius: 16px; padding: 24px; }
+  .regime-header { display: flex; align-items: center; gap: 20px; margin-bottom: 20px; }
+  .regime-score { font-size: 48px; font-weight: 700; }
+  .regime-info { font-size: 14px; color: rgba(227,242,253,0.6); }
+  .regime-info strong { color: #F3F4F6; }
+  .regime-dim { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .dim-name { font-size: 12px; color: rgba(227,242,253,0.5); width: 70px; text-transform: uppercase; }
+  .dim-bar { flex: 1; height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; }
+  .dim-fill { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
+  .dim-score { font-size: 13px; font-weight: 600; width: 50px; text-align: right; }
+  .contradiction { margin-top: 12px; padding: 8px 12px; background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.2); border-radius: 8px; font-size: 13px; color: #FDE68A; }
+
+  /* 操作建議 */
+  .trigger-row { display: flex; gap: 16px; font-size: 13px; color: rgba(227,242,253,0.55); padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .trigger-asset { font-weight: 600; color: #C4B5FD; min-width: 40px; }
+  .capital-advice { background: rgba(139,92,246,0.08); border: 1px solid rgba(139,92,246,0.2); border-radius: 12px; padding: 16px 20px; margin-top: 16px; font-size: 14px; color: #C4B5FD; text-align: center; }
+
+  /* 今日不做 */
+  .dont-box { background: rgba(239,68,68,0.04); border: 1px solid rgba(239,68,68,0.15); border-radius: 16px; padding: 24px; }
+  .dont-rule { font-size: 14px; color: rgba(252,165,165,0.8); padding: 6px 0; }
+
+  .glow-line { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(139,92,246,0.5), transparent); margin: 28px 0; animation: shimmer 3s ease-in-out infinite; }
+  .footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; }
+  .footer p { font-size: 12px; color: rgba(227,242,253,0.25); }
+  .footer .powered { margin-top: 4px; font-size: 11px; color: rgba(139,92,246,0.35); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes shimmer { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px 40px; }
+    .snapshot-table { font-size: 12px; }
+    .regime-header { flex-direction: column; text-align: center; }
+  }
+
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="logo">V</div>
+    <div class="header-text">
+      <h1>薇拉早報</h1>
+      <div class="subtitle">Vera Morning Brief v2</div>
+    </div>
+  </div>
+  <div class="date-badge"><span>2026-04-15（三）｜停火/和平紅利</span></div>
+
+  <!-- ═══ ① 全球市場快照 ═══ -->
+  <div class="section">
+    <div class="section-title">① 全球市場快照</div>
+    <div class="overall-tag">全面 Risk-On，股幣齊漲</div>
+    <table class="snapshot-table">
+      <thead><tr><th>資產</th><th>價格</th><th>漲跌</th><th>判讀</th></tr></thead>
+      <tbody>
+      <tr>
+        <td>S&amp;P 500</td>
+        <td style="text-align:right;">6,967.38</td>
+        <td style="text-align:right;color:#34D399;">+1.18%</td>
+        <td class="tag-cell">上漲</td>
+      </tr>
+      <tr>
+        <td>NASDAQ</td>
+        <td style="text-align:right;">23,639.08</td>
+        <td style="text-align:right;color:#34D399;">+1.96%</td>
+        <td class="tag-cell">上漲</td>
+      </tr>
+      <tr>
+        <td>道瓊</td>
+        <td style="text-align:right;">48,535.99</td>
+        <td style="text-align:right;color:#34D399;">+0.66%</td>
+        <td class="tag-cell">盤整</td>
+      </tr>
+      <tr>
+        <td>VIX</td>
+        <td style="text-align:right;">18.36</td>
+        <td style="text-align:right;color:#F87171;">-3.97%</td>
+        <td class="tag-cell">平靜</td>
+      </tr>
+      <tr>
+        <td>WTI</td>
+        <td style="text-align:right;">92.09</td>
+        <td style="text-align:right;color:#F87171;">-7.05%</td>
+        <td class="tag-cell">暴跌</td>
+      </tr>
+      <tr>
+        <td>黃金</td>
+        <td style="text-align:right;">4,864.80</td>
+        <td style="text-align:right;color:#34D399;">+2.58%</td>
+        <td class="tag-cell">避險買盤</td>
+      </tr>
+      <tr>
+        <td>美元指數</td>
+        <td style="text-align:right;">98.11</td>
+        <td style="text-align:right;color:#F87171;">-0.26%</td>
+        <td class="tag-cell"></td>
+      </tr>
+      <tr>
+        <td>BTC</td>
+        <td style="text-align:right;">74,199.50</td>
+        <td style="text-align:right;color:#34D399;">+1.48%</td>
+        <td class="tag-cell">上漲</td>
+      </tr>
+      <tr>
+        <td>ETH</td>
+        <td style="text-align:right;">2,311.84</td>
+        <td style="text-align:right;color:#34D399;">+2.58%</td>
+        <td class="tag-cell">上漲</td>
+      </tr>
+      <tr>
+        <td>SOL</td>
+        <td style="text-align:right;">83.6</td>
+        <td style="text-align:right;color:#F87171;">-0.58%</td>
+        <td class="tag-cell">弱勢</td>
+      </tr>
+      <tr>
+        <td>FNG</td>
+        <td style="text-align:right;">21</td>
+        <td style="text-align:right;color:#E3F2FD;"></td>
+        <td class="tag-cell">恐慌</td>
+      </tr>
+      <tr>
+        <td>台股加權</td>
+        <td style="text-align:right;">36,296.12</td>
+        <td style="text-align:right;color:#34D399;">+2.37%</td>
+        <td class="tag-cell">暴漲</td>
+      </tr></tbody>
+    </table>
+  </div>
+
+  <div class="glow-line"></div>
+
+  <!-- ═══ ② 核心敘事 ═══ -->
+  <div class="section">
+    <div class="section-title">② 核心敘事</div>
+    
+    <div class="analysis-card">
+      <h3>停火/和平紅利</h3>
+      <p>油價暴跌 -7.0%，市場正在交易地緣緩和。能源類股領跌，成長股受惠於通膨壓力緩解。</p>
+    </div>
+    <div class="analysis-card">
+      <h3>避險與樂觀並存</h3>
+      <p>黃金和股市同漲——聰明錢對當前走勢存疑，或反映通膨對沖需求。</p>
+    </div>
+    <p class="diff-note">關鍵變化：油價劇烈波動 -7.0%</p>
+  </div>
+
+  <div class="glow-line"></div>
+
+  <!-- ═══ ③ 加密深度 ═══ -->
+  <div class="section">
+    <div class="section-title">③ 加密深度</div>
+
+    <div class="analysis-card">
+      <h3>擁擠度</h3>
+      <ul class="signal-list"><li>暫無極端信號</li></ul>
+      <div class="data-support"></div>
+    </div>
+
+    <div class="analysis-card">
+      <h3>結構估值</h3>
+      <ul class="signal-list"><li>數據等待 P1 接入</li></ul>
+      <div class="data-support"></div>
+    </div>
+
+    <div class="conclusion-box">加密市場結構中性，無明顯極端信號</div>
+  </div>
+
+  <div class="glow-line"></div>
+
+  <!-- ═══ ④ 重點新聞 ═══ -->
+  <div class="section">
+    <div class="section-title">④ 重點新聞 + 影響鏈</div>
+    
+    <div class="analysis-card">
+      <h3><span class="source-tier tier-3">T3</span> U.S. says Hormuz blockade 'fully implemented,' while signaling diplomatic off-ra</h3>
+      
+    </div>
+    <div class="analysis-card">
+      <h3><span class="source-tier tier-3">T3</span> Trump’s Hormuz blockade puts China, India in crosshairs as U.S. pressure on Iran</h3>
+      
+    </div>
+    <div class="analysis-card">
+      <h3><span class="source-tier tier-3">T3</span> Trump 'pays attention to the stock market': Wall Street eyes signs of TACO amid </h3>
+      
+    </div>
+    <div class="analysis-card">
+      <h3><span class="source-tier tier-3">T3</span> Powell, Bessent discussed Anthropic's Mythos AI cyber threat with major U.S. ban</h3>
+      
+    </div>
+    <div class="analysis-card">
+      <h3><span class="source-tier tier-3">T3</span> Stocks Cap March With ‘Hormuz Hope’ Rally on Possible End to Middle East Conflic</h3>
+      
+    </div>
+  </div>
+
+  <div class="glow-line"></div>
+
+  <!-- ═══ ⑤ 催化劑倒數 ═══ -->
+  <div class="section">
+    <div class="section-title">⑤ 催化劑倒數</div>
+    <div class="catalyst-item catalyst-24h"><span class="cat-badge hot">24h</span> 零售銷售（3月）</div>
+    
+  </div>
+
+  <div class="glow-line"></div>
+
+  <!-- ═══ ⑥ Regime 儀表板 ═══ -->
+  <div class="section">
+    <div class="section-title">⑥ Regime 儀表板</div>
+    
+    <div class="regime-dashboard">
+      <div class="regime-header">
+        <div class="regime-score" style="color:#34D399;">+6.8</div>
+        <div class="regime-info">
+          <div>Signal: <strong>NEUTRAL</strong></div>
+          <div><span style="color:#F87171;font-weight:700;">🚫 不允許新開倉</span></div>
+        </div>
+      </div>
+      
+        <div class="regime-dim">
+          <span class="dim-name">macro</span>
+          <div class="dim-bar"><div class="dim-fill" style="width:50%;background:#FBBF24;"></div></div>
+          <span class="dim-score" style="color:#FBBF24;">+0.0</span>
+        </div>
+        <div class="regime-dim">
+          <span class="dim-name">onchain</span>
+          <div class="dim-bar"><div class="dim-fill" style="width:50%;background:#FBBF24;"></div></div>
+          <span class="dim-score" style="color:#FBBF24;">+0.0</span>
+        </div>
+        <div class="regime-dim">
+          <span class="dim-name">vix</span>
+          <div class="dim-bar"><div class="dim-fill" style="width:50%;background:#FBBF24;"></div></div>
+          <span class="dim-score" style="color:#FBBF24;">+0.0</span>
+        </div>
+        <div class="regime-dim">
+          <span class="dim-name">ml</span>
+          <div class="dim-bar"><div class="dim-fill" style="width:50%;background:#FBBF24;"></div></div>
+          <span class="dim-score" style="color:#FBBF24;">+0.0</span>
+        </div>
+        <div class="regime-dim">
+          <span class="dim-name">deribit</span>
+          <div class="dim-bar"><div class="dim-fill" style="width:50%;background:#FBBF24;"></div></div>
+          <span class="dim-score" style="color:#FBBF24;">+0.0</span>
+        </div>
+        <div class="regime-dim">
+          <span class="dim-name">funding</span>
+          <div class="dim-bar"><div class="dim-fill" style="width:50%;background:#FBBF24;"></div></div>
+          <span class="dim-score" style="color:#FBBF24;">+0.0</span>
+        </div>
+      
+    </div>
+  </div>
+
+  <div class="glow-line"></div>
+
+  <!-- ═══ ⑦ 操作建議 ═══ -->
+  <div class="section">
+    <div class="section-title">⑦ 操作建議</div>
+    <div class="analysis-card">
+      <h3>方向：觀望</h3>
+      <p>Regime 不允許新開倉</p>
+      <p>試單比例：0% ｜ 加倉條件：等 Regime 翻多再考慮</p>
+      <p>撤退條件：N/A</p>
+      
+      <div class="trigger-row">
+        <span class="trigger-asset">BTC</span>
+        <span>買入 $70,490</span>
+        <span>加倉 $76,430</span>
+        <span>止損 $68,260</span>
+      </div>
+      <div class="capital-advice">💰 100% 現金/穩定幣，等信號翻轉</div>
+    </div>
+  </div>
+
+  <div class="glow-line"></div>
+
+  <!-- ═══ ⑧ 今日不做什麼 ═══ -->
+  <div class="section">
+    <div class="section-title">⑧ 今日不做什麼</div>
+    <div class="dont-box">
+      <div class="dont-rule">✗ Regime 封鎖中 — 不開任何新倉位</div><div class="dont-rule">✗ 不根據單一新聞做交易決策</div><div class="dont-rule">✗ 不在美股收盤前重倉加密（流動性風險）</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>薇拉早報 v2 ｜ 2026-04-15 12:57 (UTC+8)</p>
+    <p class="powered">Powered by Vera Market Intelligence</p>
+  </div>
+
+</div>
+</body>
+</html>
