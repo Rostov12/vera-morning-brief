@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>薇拉早報 — 2026-04-28</title>
+<style>
+
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #000; color: #E3F2FD;
+    font-family: 'Inter', 'Noto Sans TC', -apple-system, sans-serif;
+    line-height: 1.85; overflow-x: hidden;
+  }
+  body::before {
+    content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 85% 90%, rgba(139,92,246,0.08), transparent),
+      radial-gradient(ellipse 50% 40% at 10% 15%, rgba(59,130,246,0.06), transparent);
+    pointer-events: none; z-index: 0;
+  }
+  .container { max-width: 780px; margin: 0 auto; padding: 40px 24px 60px; position: relative; z-index: 1; }
+  .header { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; animation: fadeDown 0.6s ease both; }
+  .logo { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, #8B5CF6, #3B82F6); display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; box-shadow: 0 0 20px rgba(139,92,246,0.3); }
+  .header-text h1 { font-size: 22px; font-weight: 700; background: linear-gradient(135deg, #C4B5FD, #93C5FD); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .header-text .subtitle { font-size: 13px; color: rgba(227,242,253,0.5); font-weight: 300; }
+  .date-badge { margin: 12px 0 32px; animation: fadeDown 0.6s ease 0.1s both; }
+  .date-badge span { display: inline-block; padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; color: rgba(227,242,253,0.6); border: 1px solid rgba(139,92,246,0.3); background: rgba(139,92,246,0.08); }
+  .section { margin-bottom: 40px; }
+  .section-title { font-size: 15px; font-weight: 600; color: #A78BFA; letter-spacing: 1px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(139,92,246,0.3), transparent); }
+  .analysis-card {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(139,92,246,0.15);
+    border-radius: 16px; padding: 28px; margin-bottom: 16px;
+    animation: fadeUp 0.5s ease both;
+  }
+  .analysis-card h3 { font-size: 17px; font-weight: 600; color: #F3F4F6; margin-bottom: 12px; }
+  .analysis-card p { font-size: 14px; color: rgba(227,242,253,0.72); margin-bottom: 12px; }
+  .analysis-card p:last-child { margin-bottom: 0; }
+  .data-support {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    margin-top: 14px; padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .data-chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 12px; border-radius: 20px; font-size: 12px;
+    background: rgba(255,255,255,0.04); color: rgba(227,242,253,0.55);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .data-chip .val { font-weight: 600; }
+  .chip-up .val { color: #34D399; }
+  .chip-down .val { color: #F87171; }
+  .alert-card {
+    background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.2);
+    border-radius: 16px; padding: 28px; margin-bottom: 16px;
+    animation: fadeUp 0.5s ease both;
+  }
+  .alert-card h3 { color: #FCA5A5; font-size: 17px; font-weight: 600; margin-bottom: 12px; }
+  .alert-card p { font-size: 14px; color: rgba(227,242,253,0.72); margin-bottom: 12px; }
+  .forecast-card {
+    background: rgba(59,130,246,0.06); border: 1px solid rgba(59,130,246,0.2);
+    border-radius: 16px; padding: 28px; margin-bottom: 16px;
+    animation: fadeUp 0.5s ease both;
+  }
+  .forecast-card h3 { color: #93C5FD; font-size: 17px; font-weight: 600; margin-bottom: 12px; }
+  .forecast-card p { font-size: 14px; color: rgba(227,242,253,0.72); margin-bottom: 12px; }
+  .forecast-range {
+    display: flex; align-items: center; gap: 12px;
+    margin: 16px 0; padding: 16px 20px;
+    background: rgba(255,255,255,0.04); border-radius: 12px;
+  }
+  .forecast-range .label { font-size: 13px; color: rgba(227,242,253,0.5); min-width: 60px; }
+  .forecast-range .range-bar {
+    flex: 1; height: 8px; border-radius: 4px;
+    background: rgba(255,255,255,0.08); position: relative; overflow: hidden;
+  }
+  .forecast-range .range-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #3B82F6, #8B5CF6); }
+  .forecast-range .range-val { font-size: 14px; font-weight: 600; color: #C4B5FD; min-width: 120px; text-align: right; }
+  .risk-panel {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 600px) { .risk-panel { grid-template-columns: repeat(2, 1fr); } }
+  .risk-switch {
+    background: rgba(255,255,255,0.03); border-radius: 14px; padding: 20px;
+    text-align: center; border: 1px solid rgba(255,255,255,0.06);
+    animation: fadeUp 0.5s ease both;
+  }
+  .risk-switch .switch-name { font-size: 12px; color: rgba(227,242,253,0.5); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .risk-switch .switch-value { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .risk-switch .switch-desc { font-size: 12px; color: rgba(227,242,253,0.5); }
+  .switch-green .switch-value { color: #34D399; }
+  .switch-yellow .switch-value { color: #FBBF24; }
+  .switch-red .switch-value { color: #F87171; }
+  .switch-green { border-color: rgba(52,211,153,0.2); }
+  .switch-yellow { border-color: rgba(251,191,36,0.2); }
+  .switch-red { border-color: rgba(239,68,68,0.2); }
+  .scenario-card {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px; padding: 20px; margin-bottom: 12px;
+    animation: fadeUp 0.5s ease both;
+  }
+  .scenario-card .sc-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .scenario-card .sc-label { font-size: 15px; font-weight: 600; color: #F3F4F6; }
+  .scenario-card .sc-prob { padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+  .prob-high { background: rgba(52,211,153,0.2); color: #6EE7B7; }
+  .prob-mid { background: rgba(251,191,36,0.2); color: #FDE68A; }
+  .prob-low { background: rgba(239,68,68,0.2); color: #FCA5A5; }
+  .scenario-card .sc-desc { font-size: 14px; color: rgba(227,242,253,0.65); margin-bottom: 8px; }
+  .scenario-card .sc-action { font-size: 13px; color: #A78BFA; font-weight: 500; }
+  .capital-advice {
+    background: rgba(139,92,246,0.08); border: 1px solid rgba(139,92,246,0.2);
+    border-radius: 12px; padding: 16px 20px; margin-top: 16px;
+    font-size: 14px; color: #C4B5FD; text-align: center;
+  }
+  .calendar-item {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px; padding: 20px; margin-bottom: 12px;
+    animation: fadeUp 0.5s ease both; transition: all 0.3s ease;
+  }
+  .calendar-item:hover { border-color: rgba(139,92,246,0.3); background: rgba(139,92,246,0.05); }
+  .calendar-item .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .calendar-item .cal-time { font-size: 13px; font-weight: 600; color: #A78BFA; }
+  .calendar-item .cal-importance { padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+  .imp-critical { background: rgba(239,68,68,0.2); color: #FCA5A5; }
+  .imp-high { background: rgba(251,191,36,0.2); color: #FDE68A; }
+  .imp-medium { background: rgba(59,130,246,0.2); color: #93C5FD; }
+  .calendar-item .cal-event { font-size: 15px; font-weight: 600; color: #F3F4F6; margin-bottom: 8px; }
+  .calendar-item .cal-data { font-size: 13px; color: rgba(227,242,253,0.55); margin-bottom: 6px; }
+  .calendar-item .cal-analysis { font-size: 13px; color: rgba(227,242,253,0.65); line-height: 1.8; }
+  .regime-mini {
+    display: flex; align-items: center; gap: 16px;
+    padding: 16px 20px; border-radius: 12px;
+    background: rgba(255,255,255,0.04); margin-top: 14px;
+  }
+  .regime-mini .score { font-size: 32px; font-weight: 700; color: #FBBF24; }
+  .regime-mini .info { font-size: 13px; color: rgba(227,242,253,0.55); }
+  .regime-mini .info strong { color: #FBBF24; }
+  .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; animation: fadeUp 0.5s ease 0.25s both; }
+  .tag-cloud span { padding: 4px 12px; border-radius: 16px; font-size: 12px; background: rgba(255,255,255,0.04); color: rgba(227,242,253,0.5); border: 1px solid rgba(255,255,255,0.06); }
+  .glow-line { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(139,92,246,0.5), transparent); margin: 28px 0; animation: shimmer 3s ease-in-out infinite; }
+  .footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; }
+  .footer p { font-size: 12px; color: rgba(227,242,253,0.25); }
+  .footer .powered { margin-top: 4px; font-size: 11px; color: rgba(139,92,246,0.35); }
+  .third-party-view {
+    border-left: 3px solid rgba(167,139,250,0.85);
+    padding: 10px 12px;
+    margin: 14px 0 4px;
+    background: rgba(255,255,255,0.03);
+    font-size: 0.92em;
+    border-radius: 0 8px 8px 0;
+  }
+  .tpv-header { font-weight: 600; color: rgba(227,242,253,0.72); margin-bottom: 4px; }
+  .tpv-title { font-size: 1.05em; margin-bottom: 2px; color: #F3F4F6; }
+  .tpv-date { font-size: 0.85em; color: rgba(227,242,253,0.45); margin-bottom: 6px; }
+  .tpv-excerpt { line-height: 1.6; color: rgba(227,242,253,0.8); }
+  .tpv-source { font-size: 0.85em; color: rgba(227,242,253,0.62); margin-top: 6px; }
+  .tpv-source a { color: #A78BFA; text-decoration: none; }
+  .tpv-source a:hover { text-decoration: underline; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes shimmer { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="logo">V</div>
+    <div class="header-text">
+      <h1>薇拉早報</h1>
+      <div class="subtitle">Vera Morning Brief</div>
+    </div>
+  </div>
+  <div class="date-badge">
+    <span>2026-04-28（二）</span>
+  </div>
+
+  <!-- ═══ 敘事判讀 + 市場定位 ═══ -->
+  <div class="section" style="margin-bottom:24px;">
+    <div class="analysis-card" style="border-color:rgba(139,92,246,0.3);background:rgba(139,92,246,0.05);">
+      <h3 style="font-size:16px;color:#C4B5FD;">📖 📖 市場正在交易的故事：**觀望等待** — 市場缺乏明確催化劑，維持窄幅震盪</h3>
+      <p style="margin-top:12px;font-size:14px;color:rgba(227,242,253,0.72);">↔️ <strong>市場定位：左右交界</strong>（得分 +0）— 市場在左側與右側之間切換，方向不明<br><span style="color:#A78BFA;">策略：縮小倉位等方向確認，不追不殺</span></p>
+    </div>
+  </div>
+
+  <!-- ═══ 一、市場總覽 ═══ -->
+  <div class="section">
+    <div class="section-title">市場總覽</div>
+
+    <div class="analysis-card">
+      <h3>美股窄幅盤整，等待方向</h3>
+      <p>S&amp;P 500 收 +0.12%，Nasdaq +0.20%，道瓊 -0.13%。VIX 18.0，波動率尚未回到安全區（18 以下）。 美股在沒有新催化劑下只走小區間，指數漲跌互見本質上是資金在觀望、用輪動撐盤而不是方向性押注。這種盤面對應主敘事：市場先等訊號，震盪比趨勢更明確。</p>
+      <div class="data-support">
+        <span class="data-chip chip-up">S&P 500 <span class="val">7,174 (+0.12%)</span></span><span class="data-chip chip-up">NASDAQ <span class="val">24,887 (+0.20%)</span></span><span class="data-chip chip-down">道瓊 <span class="val">49,168 (-0.13%)</span></span><span class="data-chip">VIX <span class="val">18.0</span></span>
+      </div>
+    </div>
+
+    <div class="analysis-card">
+      <h3>類股輪動：資金分散，主線未明</h3>
+      <p>領漲：金融 +0.7%、通訊 +0.2%。落後：房地產 -0.8%、必需消費 -1.1%。台股動能仍在，但融資增加代表追價籌碼回流，結構偏向短線資金主導。這種上漲可以延續，卻也意味一旦量價轉弱，波動會比純外資買盤更快放大。</p>
+      <div class="data-support">
+        <span class="data-chip chip-up">金融 <span class="val">+0.7%</span></span><span class="data-chip chip-up">通訊 <span class="val">+0.2%</span></span><span class="data-chip chip-up">科技 <span class="val">+0.2%</span></span><span class="data-chip chip-up">公用事業 <span class="val">+0.0%</span></span><span class="data-chip chip-up">工業 <span class="val">+0.0%</span></span>
+      </div>
+    </div>
+
+    <div class="analysis-card">
+      <h3>大宗商品與匯率動態</h3>
+      <p>WTI 原油 $96.6/桶（+2.3%）。黃金下跌至 $4,695/oz（-0.6%）。美元指數 98.49（-0.0%）。 油價這波更像 supply-driven，而不是需求突然轉強：在美元幾乎不動、總體風險資產偏觀望下，原油單獨走高通常是供給端或地緣風險溢價在定價。換句話說，漲的是中斷風險，不是景氣樂觀。 黃金回落且美元近乎持平，顯示避險買盤強度不高，市場沒有把風險事件升級成系統性壓力。資金現在更像是降低久期與避險倉位，而非全面轉向防禦。</p>
+      <div class="data-support">
+        <span class="data-chip chip-up">WTI <span class="val">$96.6 (+2.3%)</span></span><span class="data-chip chip-down">黃金 <span class="val">$4,695 (-0.6%)</span></span><span class="data-chip chip-down">DXY <span class="val">98.49 (-0.0%)</span></span>
+      </div>
+    </div>
+    
+
+    
+    <div class="analysis-card" style="margin-top:12px;">
+      <h3>估值快照</h3>
+      <p>S&amp;P 500 前瞻 PE <strong style="color:#FBBF24;">24.0x</strong>（合理偏高）｜
+         落後 PE 34.1x｜折價 +42.0%</p>
+      <p style="font-size:12px;color:rgba(227,242,253,0.4);">加權估算（前 6 大權值股）</p>
+    </div>
+
+    <div class="analysis-card">
+      <h3>加密市場</h3>
+      <p>BTC $77,000（-1.6%）、ETH $2,293（-3.2%）、SOL $84.3（-2.9%）。Fear &amp; Greed 47（Neutral）。FNG 47 | 今日←昨日←7日均: 47←33←37.3。加密今天明顯比美股弱，屬於短線脫鉤：美股還在窄幅撐住時，幣圈先反映風險偏好降溫與槓桿部位清理。FNG回到中性附近，代表不是恐慌踩踏，而是資金暫時不願追高。</p>
+      <p style="font-size:12px;color:rgba(227,242,253,0.45);margin-top:8px;">7日走勢｜FNG 47 | 今日←昨日←7日均: 47←33←37.3</p>
+      <div class="data-support">
+        <span class="data-chip chip-down">BTC <span class="val">$77,000 (-1.6%)</span></span><span class="data-chip chip-down">ETH <span class="val">$2,293 (-3.2%)</span></span><span class="data-chip chip-down">SOL <span class="val">$84.3 (-2.9%)</span></span><span class="data-chip">FNG <span class="val">47 Neutral</span></span>
+      </div>
+      
+      <div class="regime-mini">
+        <div class="score">-0.6</div>
+        <div class="info">
+          Regime Signal: <strong>NEUTRAL</strong><br>
+          <strong style="color:#34D399;">允許新開倉</strong>
+          <br><span style="font-size:12px;color:rgba(227,242,253,0.7);">-0.6 代表環境仍偏保守、趨勢勝率不高，但 allow_new_trades=True 意味可以做，只是要用『小倉位、快進快出、嚴守停損』的節奏。重點不是重押方向，而是在震盪裡挑相對強弱與風險報酬。</span>
+        </div>
+      </div>
+    </div>
+    
+
+    
+    <div class="analysis-card" style="margin-top:12px;">
+      <h3>BTC 價格結構</h3>
+      <div class="risk-panel" style="grid-template-columns:repeat(4,1fr);margin-bottom:0;">
+        <div class="risk-switch switch-green" style="padding:14px;">
+          <div class="switch-name">現價</div>
+          <div class="switch-value" style="font-size:16px;">$77,057</div>
+        </div>
+        <div class="risk-switch switch-red" style="padding:14px;">
+          <div class="switch-name">上方壓力</div>
+          <div class="switch-value" style="font-size:16px;">$79,488</div>
+        </div>
+        <div class="risk-switch switch-green" style="padding:14px;">
+          <div class="switch-name">下方支撐</div>
+          <div class="switch-value" style="font-size:16px;">$73,303</div>
+        </div>
+        <div class="risk-switch" style="padding:14px;border-color:rgba(139,92,246,0.2);">
+          <div class="switch-name">EMA20</div>
+          <div class="switch-value" style="font-size:16px;color:#A78BFA;">$75,371</div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:rgba(227,242,253,0.4);margin-top:8px;">Pivot $76,869 ｜ R1 $77,288 ｜ S1 $76,638 ｜ 24H 76,450—77,100</p>
+    </div>
+    
+    <div class="analysis-card" style="margin-top:12px;">
+      <h3>衍生品市場</h3>
+      <p style="font-size:12px;color:rgba(227,242,253,0.45);margin-bottom:10px;">Binance 全球多空比 + 未平倉量 + 主動買賣比</p>
+      <div class="data-support" style="flex-direction:column;gap:8px;">
+        <div style="display:flex;flex-wrap:wrap;gap:8px;"><span class="data-chip"><span class="val">BTC</span></span><span class="data-chip" style="border-color:#F8717140;">多 <span class="val" style="color:#F87171;">42%</span> / 空 58%（OI 口多空比）</span><span class="data-chip">OI <span class="val">$7.4B</span> (-1.6%)</span><span class="data-chip">主動買賣 <span class="val">1.04</span> 均衡</span></div><div style="display:flex;flex-wrap:wrap;gap:8px;"><span class="data-chip"><span class="val">ETH</span></span><span class="data-chip" style="border-color:#34D39940;">多 <span class="val" style="color:#34D399;">61%</span> / 空 39%（OI 口多空比）</span><span class="data-chip">OI <span class="val">$4.7B</span> (-2.9%)</span><span class="data-chip">主動買賣 <span class="val">1.09</span> 偏多</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="glow-line"></div>
+
+  <!-- ═══ 二、風險開關面板（通勤族） ═══ -->
+  <div class="section">
+    <div class="section-title">風險開關面板</div>
+    <div class="risk-panel">
+      
+    <div class="risk-switch switch-yellow">
+      <div class="switch-name">VIX 波動率</div>
+      <div class="switch-value">18.0</div>
+      <div class="switch-desc">警戒，波動率偏高</div>
+      <div class="switch-failure">失效條件：VIX 回落 18 以下且 SPX 連收 2 根陽線</div>
+    </div>
+    <div class="risk-switch switch-green">
+      <div class="switch-name">技術動能</div>
+      <div class="switch-value">RSI 82</div>
+      <div class="switch-desc">多頭動能充沛</div>
+      <div class="switch-failure">若 RSI 跌破 50 且出現死叉 → 動能轉弱</div>
+    </div>
+    <div class="risk-switch switch-green">
+      <div class="switch-name">油價壓力</div>
+      <div class="switch-value">$97 (+2.3%)</div>
+      <div class="switch-desc">油價可控</div>
+      <div class="switch-failure">若油價飆升 5% 以上 → 切換紅燈</div>
+    </div>
+    <div class="risk-switch switch-green">
+      <div class="switch-name">FNG 情緒</div>
+      <div class="switch-value">47 Neutral</div>
+      <div class="switch-desc">情緒中性，正常操作</div>
+      <div class="switch-failure">若 FNG 快速跌破 35 → 切換警戒</div>
+    </div>
+    <div class="risk-switch switch-yellow">
+      <div class="switch-name">Regime</div>
+      <div class="switch-value">-0.6 中性</div>
+      <div class="switch-desc">方向不明，控制倉位</div>
+      <div class="switch-failure">若 score 升破 0 → 翻多；若跌破 -10 → 轉防禦</div>
+    </div>
+    </div>
+  </div>
+
+  
+  <div class="glow-line"></div>
+  <div class="section">
+    <div class="section-title">台股盤前展望</div>
+    <div class="forecast-card">
+      <h3>台股（前日收盤 39,617）</h3>
+      <p style="margin-bottom:10px;color:rgba(227,242,253,0.82);">台股動能仍在，但融資增加代表追價籌碼回流，結構偏向短線資金主導。這種上漲可以延續，卻也意味一旦量價轉弱，波動會比純外資買盤更快放大。</p>
+      <p><strong>關鍵變數：</strong></p>
+      <p>1. 前日漲幅尚可，今日空間受壓</p>
+      <div class="forecast-range">
+        <div class="label">開盤</div>
+        <div class="range-bar"><div class="range-fill" style="width:60%;"></div></div>
+        <div class="range-val">39,450 — 39,850</div>
+      </div>
+      <div class="forecast-range">
+        <div class="label">收盤</div>
+        <div class="range-bar"><div class="range-fill" style="width:50%;"></div></div>
+        <div class="range-val">39,300 — 39,750</div>
+      </div>
+      <div class="forecast-range">
+        <div class="label">信心度</div>
+        <div class="range-bar"><div class="range-fill" style="width:40%;background:linear-gradient(90deg,#FBBF24,#F59E0B);"></div></div>
+        <div class="range-val">40%（中）</div>
+      </div>
+      <p style="font-size:12px;color:rgba(227,242,253,0.4);margin-top:8px;">（明日將驗證此預測，分析偏差原因）</p>
+    </div>
+  </div>
+
+  
+    <div class="analysis-card" style="margin-top:12px;">
+      <h3>台股籌碼面</h3>
+      <p style="color:#F87171;">融資餘額日變化 +2.34%</p>
+      
+    <div class="analysis-card" style="margin-top:12px;">
+      <h3>📊 台股四燈號</h3>
+      <p><strong>2 紅 0 黃：觀望（2/4 有效）</strong></p>
+      <div class="risk-panel" style="grid-template-columns:repeat(2,1fr);">
+      <div class="risk-switch " style="padding:14px;text-align:left;">
+        <div class="switch-name">外資期貨淨空單</div>
+        <div class="switch-value" style="font-size:16px;">⚪ 外資期貨資料今日未更新</div>
+      </div>
+      <div class="risk-switch switch-red" style="padding:14px;text-align:left;">
+        <div class="switch-name">融資餘額</div>
+        <div class="switch-value" style="font-size:16px;">🔴 融資餘額 4,520 億</div>
+      </div>
+      <div class="risk-switch switch-red" style="padding:14px;text-align:left;">
+        <div class="switch-name">加權指數 20MA 乖離</div>
+        <div class="switch-value" style="font-size:16px;">🔴 加權 20MA 正乖離 +11.2%</div>
+      </div>
+      <div class="risk-switch " style="padding:14px;text-align:left;">
+        <div class="switch-name">官股買賣動向</div>
+        <div class="switch-value" style="font-size:16px;">⚪ 官股資料今日未更新</div>
+      </div></div>
+      <p>四燈號進入觀望區，台股仍有撐盤力量，但籌碼不夠乾淨，追價勝率差。</p><p>若主敘事沒有快速降溫，這裡更像震盪整理盤，該等的是風險指標轉綠，不是賭消息鈍化。</p>
+    </div>
+      
+      <p style="font-size:12px;color:rgba(227,242,253,0.35);margin-top:8px;">數據來源：FinMind（2026-04-27）</p>
+    </div>
+
+  <div class="glow-line"></div>
+
+  <!-- ═══ 三、情境推演（尼可拉斯楊） ═══ -->
+  <div class="section">
+    <div class="section-title">情境推演</div>
+    
+    <div class="scenario-card">
+      <div class="sc-header">
+        <span class="sc-label">A — 突破上攻</span>
+        <span class="sc-prob prob-mid">30%</span>
+      </div>
+      <div class="sc-desc">盤整後選擇向上。近期催化劑：GDP Q1 初值（1天後）。</div>
+      <div class="sc-action">操作：突破確認後跟進</div>
+    </div>
+    <div class="scenario-card">
+      <div class="sc-header">
+        <span class="sc-label">B — 維持盤整</span>
+        <span class="sc-prob prob-high">50%</span>
+      </div>
+      <div class="sc-desc">S&amp;P 變動 +0.1%，窄幅震盪。近期催化劑：GDP Q1 初值（1天後）。</div>
+      <div class="sc-action">操作：區間操作或觀望</div>
+    </div>
+    <div class="scenario-card">
+      <div class="sc-header">
+        <span class="sc-label">C — 跌破支撐</span>
+        <span class="sc-prob prob-low">20%</span>
+      </div>
+      <div class="sc-desc">意外利空導致跌破盤整區間。</div>
+      <div class="sc-action">操作：止損出場，等企穩</div>
+    </div>
+    <div class="capital-advice">
+      資金配置建議：中性區：三份資金建倉，一份現金保留彈性
+    </div>
+  </div>
+
+  
+  <div class="glow-line"></div>
+  <div class="section">
+    <div class="section-title">經濟日曆</div>
+    
+    <div class="calendar-item">
+      <div class="cal-header">
+        <span class="cal-time">2026-04-29（1天後）</span>
+        <span class="cal-importance imp-high">HIGH</span>
+      </div>
+      <div class="cal-event">GDP Q1 初值</div>
+      <div class="cal-data">前值：0.5</div>
+      <div class="cal-analysis">
+        高於預期：經濟成長超預期 → 偏多（但過熱則偏空）<br>
+        低於預期：經濟放緩 → 衰退疑慮 → 偏空<br>
+        觀察重點：初值影響最大，修正值/終值影響遞減
+      </div>
+    </div>
+    <div class="calendar-item">
+      <div class="cal-header">
+        <span class="cal-time">2026-04-30（2天後）</span>
+        <span class="cal-importance imp-high">HIGH</span>
+      </div>
+      <div class="cal-event">PCE（3月）</div>
+      <div class="cal-data">前值：3.0%</div>
+      <div class="cal-analysis">
+        高於預期：Fed 最愛通膨指標偏高 → 鷹派 → 偏空<br>
+        低於預期：通膨降溫 → 鴿派 → 偏多<br>
+        觀察重點：Core PCE（排除食品能源）是 Fed 2% 目標的核心指標
+      </div>
+    </div>
+    <div class="calendar-item">
+      <div class="cal-header">
+        <span class="cal-time">2026-05-01（3天後）</span>
+        <span class="cal-importance imp-high">HIGH</span>
+      </div>
+      <div class="cal-event">NFP（4月就業）</div>
+      <div class="cal-data">前值：+178K</div>
+      <div class="cal-analysis">
+        高於預期：就業強勁 → 經濟過熱 → 偏空（升息壓力）<br>
+        低於預期：就業疲弱 → 降息預期 → 偏多<br>
+        觀察重點：同步關注失業率與時薪成長
+      </div>
+    </div>
+    <div class="calendar-item">
+      <div class="cal-header">
+        <span class="cal-time">2026-05-01（3天後）</span>
+        <span class="cal-importance imp-high">HIGH</span>
+      </div>
+      <div class="cal-event">ISM 製造業 PMI（4月）</div>
+      <div class="cal-data">前值：</div>
+      <div class="cal-analysis">
+        高於預期：&gt;50 擴張，超預期 → 偏多<br>
+        低於預期：&lt;50 收縮，低於預期 → 偏空<br>
+        觀察重點：新訂單和就業分項是領先指標
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="glow-line"></div>
+  <div class="section">
+    <div class="section-title">重要新聞</div>
+    <p style="font-size:12px;color:rgba(227,242,253,0.45);margin:0 0 12px;">新聞不是只列標題；以下直接寫成昆鴻持倉視角的交易意義。</p>
+    
+    <div class="calendar-item">
+      <div class="cal-header">
+        <span class="cal-time" style="color:#93C5FD;">📰</span>
+        <span class="cal-importance" style="background:rgba(255,255,255,0.08);color:rgba(227,242,253,0.8);">MACRO｜信心 62%</span>
+      </div>
+      <div class="cal-event">霍爾木茲航運壓力升</div>
+      <div class="cal-analysis"><strong>持倉影響：</strong>組合無直接油氣曝險，主要是通膨與風險情緒的二階影響；現階段先維持高現金，僅對GLD形成輕微避險支撐，不足以改變配置。</div>
+      <div class="cal-analysis"><strong>傳導路徑：</strong>霍爾木茲封鎖消息 → 原油與航運風險溢價 → 間接影響00662/009816風險偏好並小幅支撐GLD。</div>
+      <div class="cal-analysis"><strong>失效條件：</strong>若一週內油價回吐漲幅且主要航線保費/運價未續升，代表供應衝擊定價失敗。</div>
+    </div>
+    <div class="calendar-item">
+      <div class="cal-header">
+        <span class="cal-time" style="color:#93C5FD;">📰</span>
+        <span class="cal-importance" style="background:rgba(255,255,255,0.08);color:rgba(227,242,253,0.8);">MACRO｜信心 55%</span>
+      </div>
+      <div class="cal-event">鮑威爾案撤查降噪</div>
+      <div class="cal-analysis"><strong>持倉影響：</strong>偏向降低聯準會政治雜訊，對科技股估值是小利多、對黃金偏中性偏弱；但來源標記不完整，訊號雜訊偏大，暫不調整部位。</div>
+      <div class="cal-analysis"><strong>傳導路徑：</strong>司法調查退場 → 聯準會政策不確定性下降 → 支撐00662與009816、壓抑GLD避險需求。</div>
+      <div class="cal-analysis"><strong>失效條件：</strong>若隨後出現更強烈的人事/政策干預言論並推升美債波動，則降噪假設失效。</div>
+    </div>
+    <div class="calendar-item">
+      <div class="cal-header">
+        <span class="cal-time" style="color:#93C5FD;">📰</span>
+        <span class="cal-importance" style="background:rgba(255,255,255,0.08);color:rgba(227,242,253,0.8);">MACRO｜信心 74%</span>
+      </div>
+      <div class="cal-event">Fed按兵不動成定局</div>
+      <div class="cal-analysis"><strong>持倉影響：</strong>符合「觀望等待」主敘事：利率不動下缺乏新催化，窄幅震盪機率高；高現金配置仍是有效防守，股票與黃金先不加碼。</div>
+      <div class="cal-analysis"><strong>傳導路徑：</strong>Fed維持利率 → 資金成本與折現率短期穩定 → CASH_CATHAY受益於防守定位，00662/009816維持區間交易。</div>
+      <div class="cal-analysis"><strong>失效條件：</strong>若核心通膨或就業數據明顯偏離，導致降息/升息預期急轉，則區間震盪判斷失效。</div>
+    </div>
+    <div class="calendar-item">
+      <div class="cal-header">
+        <span class="cal-time" style="color:#93C5FD;">📰</span>
+        <span class="cal-importance" style="background:rgba(239,68,68,0.2);color:rgba(227,242,253,0.8);">GEOPOLITICAL｜信心 68%</span>
+      </div>
+      <div class="cal-event">伊朗戰事風險鈍化</div>
+      <div class="cal-analysis"><strong>持倉影響：</strong>市場對地緣衝突反應降溫，避險溢價難擴大；GLD短線缺催化，股票部位壓力有限，整體維持原配置。</div>
+      <div class="cal-analysis"><strong>傳導路徑：</strong>戰事關注度下降 → 風險溢價收斂 → GLD上行受限，00662與009816相對受益於風險偏好穩定。</div>
+      <div class="cal-analysis"><strong>失效條件：</strong>若衝突升級到實際供應中斷或制裁擴大並同步推高油金，則鈍化敘事失效。</div>
+    </div>
+    <div class="calendar-item">
+      <div class="cal-header">
+        <span class="cal-time" style="color:#93C5FD;">📰</span>
+        <span class="cal-importance" style="background:rgba(239,68,68,0.2);color:rgba(227,242,253,0.8);">GEOPOLITICAL｜信心 51%</span>
+      </div>
+      <div class="cal-event">白宮討論海峽提案</div>
+      <div class="cal-analysis"><strong>持倉影響：</strong>目前仍屬政策討論層級，Headline風險大於可交易訊號；來源雜訊高、不改變配置，只保留現金與黃金的防守結構。</div>
+      <div class="cal-analysis"><strong>傳導路徑：</strong>霍爾木茲政策討論 → 地緣與能源預期波動 → 先影響市場情緒，再間接傳導至00662/009816與GLD。</div>
+      <div class="cal-analysis"><strong>失效條件：</strong>若出現正式行政命令、軍事部署或盟友協同措施，則需把它從雜訊升級為實質風險。</div>
+    </div>
+  </div>
+
+  
+  <div class="glow-line"></div>
+  <div class="section">
+    <div class="section-title">加密深度指標</div>
+    <div class="analysis-card">
+      <h3>Funding Rate（年化）</h3>
+      <p>負值 = 空頭付費給多頭（做多有利）；正值 = 多頭擁擠（做多成本高）</p>
+      <div class="data-support">
+        <span class="data-chip chip-down">BTC Funding <span class="val">-2.23%</span></span><span class="data-chip chip-down">ETH Funding <span class="val">-4.55%</span></span><span class="data-chip chip-down">SOL Funding <span class="val">-15.97%</span></span>
+      </div>
+      <p style="font-size:12px;color:rgba(227,242,253,0.35);margin-top:8px;">數據時間：2026-04-28 01:00</p>
+    </div>
+  </div>
+
+  <div class="glow-line"></div>
+
+  
+  <div class="glow-line"></div>
+  <div class="section">
+    <div class="section-title">傳導鏈展開</div>
+    <p style="font-size:12px;color:rgba(227,242,253,0.45);margin:0 0 12px;">只保留今天真的在交易的鏈，不再用固定模板塞段落。</p>
+    
+    <div class="analysis-card" style="margin-bottom:12px;">
+      <h3 style="font-size:15px;">🔗 地緣政治衝突</h3>
+      <p>今日主敘事偏向「觀望等待」，地緣政治衝突 這條鏈有 1 個關鍵詞被市場反覆交易。</p>
+      <p style="margin-top:8px;color:rgba(227,242,253,0.75);"><strong>組合連結：</strong>組合內已有核能曝險，這條鏈若持續升溫，既有 URNM/NLR 會先反應。</p>
+      <div style='margin:6px 0;font-size:13px;color:rgba(227,242,253,0.65);'><strong style='color:#A78BFA;'>避險資產</strong> → GLD、黃金ETF、美債ETF<br><span style='font-size:12px;color:rgba(227,242,253,0.4);'>資金流入避險</span></div><div style='margin:6px 0;font-size:13px;color:rgba(227,242,253,0.65);'><strong style='color:#A78BFA;'>能源</strong> → XLE、油價相關ETF<br><span style='font-size:12px;color:rgba(227,242,253,0.4);'>供應鏈中斷風險</span></div><div style='margin:6px 0;font-size:13px;color:rgba(227,242,253,0.65);'><strong style='color:#A78BFA;'>軍工</strong> → LMT、RTX、NOC、漢翔(2634)<br><span style='font-size:12px;color:rgba(227,242,253,0.4);'>國防支出增加</span></div>
+      <p style="font-size:12px;color:rgba(227,242,253,0.45);margin-top:10px;">失效條件：若主敘事從「觀望等待」反轉，或相關資產價格沒有跟隨，這條傳導鏈就視為無效。</p>
+    </div>
+  </div>
+
+  
+  <div class="glow-line"></div>
+  <div class="section">
+    <div class="section-title">歷史參照</div>
+    <div class="analysis-card">
+      <h3>📚 伊朗兩週停火協議（2026/04/07）</h3>
+      <p><strong>薇拉為何選它：</strong>薇拉選這個類比，不是因為字面像，而是它和今天一樣都在交易「觀望等待」對風險溢價的重估。</p>
+      <p><strong>當時第一反應：</strong>油價單日跌 9%，S&amp;P 反彈 3.2%，VIX 從 32 降至 24</p>
+      <p><strong>後續演變：</strong>停火不等於和平，油價在 $85-95 區間震盪，市場交易停火但未完全定價和平</p>
+      <p style="color:#FBBF24;margin-top:8px;"><strong>今天真正該學的：</strong>更重要的是看第一波價格反應後，資金有沒有沿同方向追價；這決定今天是延續還是反轉。</p>
+      <p style="font-size:12px;color:rgba(227,242,253,0.45);margin-top:8px;">觀察點：觀察事件是否出現第二階段確認：政策落地、衝突升級/降溫、或波動率持續擴大。</p>
+    </div>
+  </div>
+
+  <!-- ═══ 薇拉觀點 ═══ -->
+  <div class="section">
+    <div class="section-title">薇拉觀點</div>
+    <div class="analysis-card">
+      <h3>綜合判斷</h3>
+      <p style="margin-bottom:12px;">昨夜美股窄幅波動（S&amp;P +0.1%），量能和方向都不明確。市場正在等催化劑——可能是經濟數據、地緣變化、或 Fed 表態。在催化劑出現前，追漲殺跌的風險都偏高。</p><p style="margin-bottom:12px;">加密市場方面，BTC $77,000（-1.6%），距支撐位 $73,303 僅 4.8%，接近關鍵防線，站穩 EMA20（$75,371）之上，短線結構偏多。 衍生品市場空頭佔優（多42%/空58%，OI 口多空比），但這反而可能為軋空反彈創造條件。</p><p style="margin-bottom:12px;">跨資產觀察：黃金回落 -0.6%，避險需求降溫，風險偏好有回升跡象。油價 $97（+2.3%）走強，可能推升通膨預期並壓制 Fed 降息空間。</p><p style="margin-bottom:12px;">**資產配置建議：** 訊號混合，採取中性偏保守策略。 維持現有倉位，不追高也不恐慌減倉。 等待下一個明確催化劑（經濟數據/地緣進展/Fed 表態）再做方向性決定。 中性區：三份資金建倉，一份現金保留彈性。</p><p style="margin-bottom:12px;">今日可參照「伊朗兩週停火協議（2026/04/07）」：薇拉選這個類比，不是因為字面像，而是它和今天一樣都在交易「觀望等待」對風險溢價的重估。</p>
+    </div>
+  </div>
+
+  <div class="tag-cloud">
+    <span>觀望等待</span><span>BTC $77,000</span><span>Regime neutral</span>
+  </div>
+
+  <div class="footer">
+    <p>薇拉早報 ｜ 2026-04-28 06:57 (UTC+8)</p>
+    <p class="powered">Powered by Vera Market Intelligence</p>
+  </div>
+
+</div>
+</body>
+</html>
